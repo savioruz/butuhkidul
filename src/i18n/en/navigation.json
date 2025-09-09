@@ -1,6 +1,7 @@
 {
 	"home": "Home",
-	"products": "Products",
-	"blog": "Blog",
-	"contact": "Contact"
+	"histories": "Histories",
+	"articles": "Articles",
+	"organizations": "Organizations",
+	"financial": "Financial"
 }

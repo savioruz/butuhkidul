@@ -1,5 +1,5 @@
 {
-	"welcome": "Welcome to SvelteKit",
+	"welcome_title": "Welcome to SvelteKit",
 	"description": "Visit the documentation to learn more about SvelteKit and start building amazing web applications.",
 	"documentation_link": "Read the documentation",
 	"loading": "Loading...",
@@ -7,5 +7,129 @@
 	"not_found": "I'm sorry, but the page you're looking for doesn't exist.",
 	"back_to_home": "Back to Home",
 	"language": "Language",
-	"logo": "🇺🇸"
+	"logo": "🇺🇸",
+	"hero": {
+		"welcome": "Welcome to",
+		"village_name": "Butuh Kidul Village",
+		"subtitle": "A beautiful village nestled in the heart of Indonesia, where tradition meets modernity and community thrives in harmony with nature.",
+		"explore_button": "Explore Our Village",
+		"learn_more": "Learn More"
+	},
+	"stats": {
+		"population": "Population",
+		"population_count": "2,500+",
+		"population_desc": "Residents",
+		"location": "Coordinates",
+		"location_coords": "Loading...",
+		"location_desc": "GPS coordinates",
+		"established": "Established",
+		"established_year": "1945",
+		"established_desc": "Years of history",
+		"villages": "Villages",
+		"villages_count": "1",
+		"villages_desc": "Sub-villages"
+	},
+	"welcome": {
+		"title": "Welcome to Our Community",
+		"message": "Butuh Kidul Village is a vibrant community that values tradition, embraces progress, and welcomes visitors with open arms. Discover our rich cultural heritage, natural beauty, and the warm hospitality of our people.",
+		"browse_articles": "Browse Articles",
+		"learn_history": "Learn Our History"
+	},
+	"history": {
+		"title": "Our Village History",
+		"subtitle": "Explore the rich heritage and stories that shaped our community through the years.",
+		"preview_subtitle": "Discover our heritage and traditions",
+		"default_message": "Discover the rich history and heritage of our village, passed down through generations.",
+		"view_all": "View All",
+		"read_more": "Read More",
+		"entry_title": "Village History",
+		"no_history": "No history entries available at the moment.",
+		"meta_description": "Explore the rich history and heritage of Butuh Kidul Village."
+	},
+	"articles": {
+		"title": "Latest Articles",
+		"subtitle": "Stay updated with news and stories from our community",
+		"view_all": "View All Articles",
+		"browse_all": "Browse All Articles",
+		"loading": "Loading articles...",
+		"loading_content": "Loading article content...",
+		"error_loading": "Error loading articles. Please try again.",
+		"search_placeholder": "Search articles...",
+		"search": "Search",
+		"articles_count": "articles",
+		"meta_description": "Read the latest news and articles from Butuh Kidul Village.",
+		"loading_article": "Loading Article",
+		"article_not_found": "Article Not Found",
+		"failed_to_load": "Failed to load article",
+		"try_again": "Try Again",
+		"back_to_articles": "Back to Articles",
+		"published_on": "Published on",
+		"share": "Share",
+		"article_label": "Article",
+		"search_results": "Search Results for",
+		"found_articles": "{count} articles found",
+		"page_of": "Page {current} of {total}",
+		"available_articles": "{count} articles available",
+		"no_articles_found": "No Articles Found",
+		"no_articles_published": "No articles have been published yet.",
+		"no_matching_articles": "No articles match",
+		"view_all_articles": "View All Articles",
+		"latest_articles": "Latest Articles",
+		"loading_page": "Loading page...",
+		"read_more": "Read More",
+		"sample1": {
+			"title": "Village Infrastructure Development",
+			"date": "November 2024",
+			"description": "Learn about the latest infrastructure improvements and development projects that are enhancing the quality of life for our residents."
+		},
+		"sample2": {
+			"title": "Environmental Conservation Efforts",
+			"date": "October 2024",
+			"description": "Discover our community's ongoing initiatives to protect and preserve the natural environment for future generations."
+		},
+		"sample3": {
+			"title": "Community Events and Celebrations",
+			"date": "September 2024",
+			"description": "Join us in celebrating our rich cultural traditions through various community events and festivals throughout the year."
+		}
+	},
+	"features": {
+		"community": {
+			"title": "Strong Community",
+			"description": "A close-knit community that values tradition, cooperation, and mutual support in daily life."
+		},
+		"environment": {
+			"title": "Natural Beauty",
+			"description": "Surrounded by lush landscapes and committed to environmental preservation and sustainability."
+		},
+		"services": {
+			"title": "Village Services",
+			"description": "Comprehensive public services and facilities to support the needs of our residents."
+		}
+	},
+	"umkm": {
+		"title": "Village Business Units (UMKM)",
+		"subtitle": "Discover the various business units and community organizations that drive our local economy and social development",
+		"units_title": "Business Units",
+		"members_title": "Unit Members",
+		"all_units": "All Units",
+		"all_members": "All Members",
+		"no_units": "No business units found.",
+		"no_members": "No members found in this unit.",
+		"loading_units": "Loading business units...",
+		"loading_members": "Loading members...",
+		"error_loading": "Error loading data. Please try again.",
+		"position": "Position",
+		"unit": "Unit",
+		"member_since": "Member since",
+		"contact": "Contact",
+		"description": "Description",
+		"members_count": "members",
+		"view_members": "View Members",
+		"back_to_units": "Back to Units",
+		"search_placeholder": "Search units...",
+		"filter_by_name": "Filter by name",
+		"filter_by_position": "Filter by position"
+	},
+	"retry": "Try Again"
 }

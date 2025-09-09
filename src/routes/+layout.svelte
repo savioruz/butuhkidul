@@ -69,9 +69,7 @@
 		<Navbar />
 	{/if}
 	<main class="flex min-h-screen flex-col items-center justify-center py-8">
-		<div
-			class="flex w-full max-w-sm flex-col items-center justify-center px-4 md:max-w-screen-md md:px-0"
-		>
+		<div class="flex w-full flex-col items-center justify-center px-4 md:px-16">
 			{@render children()}
 		</div>
 	</main>

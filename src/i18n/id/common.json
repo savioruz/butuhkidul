@@ -1,5 +1,5 @@
 {
-	"welcome": "Selamat datang di SvelteKit",
+	"welcome_title": "Selamat datang di SvelteKit",
 	"description": "Kunjungi dokumentasi untuk mempelajari lebih lanjut tentang SvelteKit dan mulai membangun aplikasi web yang menakjubkan.",
 	"documentation_link": "Baca dokumentasi",
 	"loading": "Memuat...",
@@ -7,5 +7,129 @@
 	"not_found": "Maaf, halaman yang Anda cari tidak ada.",
 	"back_to_home": "Kembali ke Beranda",
 	"language": "Bahasa",
-	"logo": "🇮🇩"
+	"logo": "🇮🇩",
+	"hero": {
+		"welcome": "Selamat Datang di",
+		"village_name": "Desa Butuh Kidul",
+		"subtitle": "Sebuah desa yang indah terletak di jantung Indonesia, di mana tradisi bertemu dengan modernitas dan masyarakat berkembang dalam harmoni dengan alam.",
+		"explore_button": "Jelajahi Desa Kami",
+		"learn_more": "Pelajari Lebih Lanjut"
+	},
+	"stats": {
+		"population": "Penduduk",
+		"population_count": "2.500+",
+		"population_desc": "Jiwa",
+		"location": "Koordinat",
+		"location_coords": "Memuat...",
+		"location_desc": "Koordinat GPS",
+		"established": "Didirikan",
+		"established_year": "1945",
+		"established_desc": "Tahun sejarah",
+		"villages": "Desa",
+		"villages_count": "1",
+		"villages_desc": "Sub-desa"
+	},
+	"welcome": {
+		"title": "Selamat Datang di Komunitas Kami",
+		"message": "Desa Butuh Kidul adalah komunitas yang dinamis yang menghargai tradisi, merangkul kemajuan, dan menyambut pengunjung dengan tangan terbuka. Temukan warisan budaya yang kaya, keindahan alam, dan keramahan masyarakat kami.",
+		"browse_articles": "Jelajahi Artikel",
+		"learn_history": "Pelajari Sejarah Kami"
+	},
+	"history": {
+		"title": "Sejarah Desa Kami",
+		"subtitle": "Jelajahi warisan kaya dan cerita-cerita yang membentuk komunitas kami sepanjang tahun.",
+		"preview_subtitle": "Temukan warisan dan tradisi kami",
+		"default_message": "Temukan sejarah dan warisan kaya desa kami yang diturunkan melalui generasi.",
+		"view_all": "Lihat Semua",
+		"read_more": "Baca Selengkapnya",
+		"entry_title": "Sejarah Desa",
+		"no_history": "Belum ada entri sejarah yang tersedia saat ini.",
+		"meta_description": "Jelajahi sejarah dan warisan kaya Desa Butuh Kidul."
+	},
+	"articles": {
+		"title": "Artikel Terbaru",
+		"subtitle": "Tetap update dengan berita dan cerita dari komunitas kami",
+		"view_all": "Lihat Semua Artikel",
+		"browse_all": "Jelajahi Semua Artikel",
+		"loading": "Memuat artikel...",
+		"loading_content": "Sedang mengambil konten artikel...",
+		"error_loading": "Gagal memuat artikel. Silakan coba lagi.",
+		"search_placeholder": "Cari artikel...",
+		"search": "Cari",
+		"articles_count": "artikel",
+		"meta_description": "Baca berita dan artikel terbaru dari Desa Butuh Kidul.",
+		"loading_article": "Memuat Artikel",
+		"article_not_found": "Artikel Tidak Ditemukan",
+		"failed_to_load": "Gagal memuat artikel",
+		"try_again": "Coba Lagi",
+		"back_to_articles": "Kembali ke Artikel",
+		"published_on": "Dipublikasikan",
+		"share": "Bagikan",
+		"article_label": "Artikel",
+		"search_results": "Hasil Pencarian",
+		"found_articles": "Ditemukan {count} artikel",
+		"page_of": "Halaman {current} dari {total}",
+		"available_articles": "{count} artikel tersedia",
+		"no_articles_found": "Artikel Tidak Ditemukan",
+		"no_articles_published": "Saat ini belum ada artikel yang dipublikasikan.",
+		"no_matching_articles": "Tidak ada artikel yang cocok dengan",
+		"view_all_articles": "Lihat Semua Artikel",
+		"latest_articles": "Artikel Terbaru",
+		"loading_page": "Memuat halaman...",
+		"read_more": "Baca Selengkapnya",
+		"sample1": {
+			"title": "Pembangunan Infrastruktur Desa",
+			"date": "November 2024",
+			"description": "Pelajari tentang perbaikan infrastruktur terbaru dan proyek pembangunan yang meningkatkan kualitas hidup warga kami."
+		},
+		"sample2": {
+			"title": "Upaya Konservasi Lingkungan",
+			"date": "Oktober 2024",
+			"description": "Temukan inisiatif berkelanjutan komunitas kami untuk melindungi dan melestarikan lingkungan alam untuk generasi mendatang."
+		},
+		"sample3": {
+			"title": "Acara dan Perayaan Komunitas",
+			"date": "September 2024",
+			"description": "Bergabunglah dengan kami dalam merayakan tradisi budaya yang kaya melalui berbagai acara komunitas dan festival sepanjang tahun."
+		}
+	},
+	"features": {
+		"community": {
+			"title": "Komunitas yang Kuat",
+			"description": "Komunitas yang erat yang menghargai tradisi, kerjasama, dan saling mendukung dalam kehidupan sehari-hari."
+		},
+		"environment": {
+			"title": "Keindahan Alam",
+			"description": "Dikelilingi oleh pemandangan hijau dan berkomitmen pada pelestarian lingkungan dan keberlanjutan."
+		},
+		"services": {
+			"title": "Layanan Desa",
+			"description": "Layanan dan fasilitas publik yang komprehensif untuk mendukung kebutuhan warga kami."
+		}
+	},
+	"umkm": {
+		"title": "Unit Usaha Desa (UMKM)",
+		"subtitle": "Temukan berbagai unit usaha dan organisasi masyarakat yang mendorong ekonomi lokal dan pembangunan sosial kami",
+		"units_title": "Unit Usaha",
+		"members_title": "Anggota Unit",
+		"all_units": "Semua Unit",
+		"all_members": "Semua Anggota",
+		"no_units": "Tidak ada unit usaha yang ditemukan.",
+		"no_members": "Tidak ada anggota dalam unit ini.",
+		"loading_units": "Memuat unit usaha...",
+		"loading_members": "Memuat anggota...",
+		"error_loading": "Gagal memuat data. Silakan coba lagi.",
+		"position": "Jabatan",
+		"unit": "Unit",
+		"member_since": "Anggota sejak",
+		"contact": "Kontak",
+		"description": "Deskripsi",
+		"members_count": "anggota",
+		"view_members": "Lihat Anggota",
+		"back_to_units": "Kembali ke Unit",
+		"search_placeholder": "Cari unit...",
+		"filter_by_name": "Filter berdasarkan nama",
+		"filter_by_position": "Filter berdasarkan jabatan"
+	},
+	"retry": "Coba Lagi"
 }

@@ -11,18 +11,23 @@ export const navigationConfig: NavItem[] = [
 		translationKey: 'home'
 	},
 	{
-		href: '/products',
-		label: 'Products',
-		translationKey: 'products'
+		href: '/histories',
+		label: 'Histories',
+		translationKey: 'histories'
 	},
 	{
-		href: '/blog',
-		label: 'Blog',
-		translationKey: 'blog'
+		href: '/articles',
+		label: 'Articles',
+		translationKey: 'articles'
 	},
 	{
-		href: '/contact',
-		label: 'Contact',
-		translationKey: 'contact'
+		href: '/organizations',
+		label: 'Organizations',
+		translationKey: 'organizations'
+	},
+	{
+		href: 'https://kas.butuhkidul.my.id/',
+		label: 'Financial',
+		translationKey: 'financial'
 	}
 ];
