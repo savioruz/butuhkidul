@@ -6,21 +6,13 @@
 	import { onMount } from 'svelte';
 	import { villageApi } from '$lib/api/village';
 	import type { VillageHistory, VillageHistoryResponse } from '@/types/village';
-	import { marked } from 'marked';
+	import { parseMarkdown } from '@/utils/markdown';
 
-	// State management
 	let villageHistory: VillageHistoryResponse | null = $state(null);
 	let histories: VillageHistory[] = $state([]);
 	let isLoading = $state(true);
 	let error = $state<string | null>(null);
 
-	// Configure marked options
-	marked.setOptions({
-		breaks: true,
-		gfm: true
-	});
-
-	// Update histories when villageHistory changes
 	$effect(() => {
 		if (villageHistory?.data?.village_histories) {
 			histories = villageHistory.data.village_histories;
@@ -29,7 +21,6 @@
 		}
 	});
 
-	// Fetch village history data
 	onMount(async () => {
 		try {
 			isLoading = true;
@@ -43,23 +34,12 @@
 		}
 	});
 
-	// Format date
 	function formatDate(dateString: string): string {
 		return new Date(dateString).toLocaleDateString('id-ID', {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric'
 		});
-	}
-
-	// Parse markdown to HTML
-	function parseMarkdown(markdown: string): string {
-		try {
-			return marked.parse(markdown) as string;
-		} catch (err) {
-			console.error('Error parsing markdown:', err);
-			return markdown; // Fallback to plain text
-		}
 	}
 </script>
 

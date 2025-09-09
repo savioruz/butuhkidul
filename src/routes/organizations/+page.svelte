@@ -69,8 +69,8 @@
 </script>
 
 <svelte:head>
-	<title>Organizations - {$t('common.hero.village_name')}</title>
-	<meta name="description" content="Explore village organizations and their members" />
+	<title>{$t('common.organizations.title')} - {$t('common.hero.village_name')}</title>
+	<meta name="description" content={$t('common.organizations.subtitle')} />
 </svelte:head>
 
 <div class="min-h-screen bg-background text-foreground">
@@ -84,9 +84,11 @@
 						class="mb-4 inline-block h-10 w-10 animate-spin rounded-full border-4 border-border border-t-primary sm:mb-6 sm:h-12 sm:w-12"
 					></div>
 					<h3 class="mb-2 text-lg font-semibold text-foreground sm:text-xl">
-						Loading Organizations
+						{$t('common.organizations.loading')}
 					</h3>
-					<p class="text-sm text-muted-foreground sm:text-base">Fetching organization data...</p>
+					<p class="text-sm text-muted-foreground sm:text-base">
+						{$t('common.organizations.loading_data')}
+					</p>
 				</div>
 			{:else if error}
 				<!-- Error State -->
@@ -96,10 +98,12 @@
 					>
 						<Building2 class="h-8 w-8 text-destructive sm:h-10 sm:w-10" />
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-foreground sm:text-xl">Failed to Load Data</h3>
+					<h3 class="mb-2 text-lg font-semibold text-foreground sm:text-xl">
+						{$t('common.organizations.failed_to_load')}
+					</h3>
 					<p class="mb-4 px-4 text-sm text-destructive sm:mb-6 sm:text-base">{error}</p>
 					<Button onclick={loadOrganizations} variant="outline" class="gap-2 text-sm sm:text-base">
-						Retry
+						{$t('common.organizations.retry')}
 					</Button>
 				</div>
 			{:else if organizations.length === 0}
@@ -107,10 +111,10 @@
 				<div class="py-16 text-center sm:py-20">
 					<Building2 class="mx-auto mb-4 h-16 w-16 text-muted-foreground sm:mb-6 sm:h-20 sm:w-20" />
 					<h3 class="mb-2 text-lg font-semibold text-foreground sm:text-xl">
-						No Organizations Found
+						{$t('common.organizations.no_organizations')}
 					</h3>
 					<p class="px-4 text-sm text-muted-foreground sm:text-base">
-						No organizations are currently registered.
+						{$t('common.organizations.no_organizations_desc')}
 					</p>
 				</div>
 			{:else}
@@ -121,12 +125,12 @@
 						<h1
 							class="mb-3 text-3xl font-bold text-foreground sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
 						>
-							Village Organizations
+							{$t('common.organizations.title')}
 						</h1>
 						<p
 							class="mx-auto max-w-2xl px-4 text-sm text-muted-foreground sm:text-base lg:max-w-4xl lg:text-lg"
 						>
-							Explore the various organizations and groups that contribute to our community
+							{$t('common.organizations.subtitle')}
 						</p>
 					</div>
 
@@ -152,7 +156,7 @@
 												<div
 													class="text-xs font-medium tracking-wide text-muted-foreground uppercase"
 												>
-													Organization
+													{$t('common.organizations.organization')}
 												</div>
 												<div class="text-xs font-semibold text-primary sm:text-sm">
 													#{organization.id.slice(-4)}
@@ -179,14 +183,17 @@
 										<div class="space-y-3 sm:space-y-4">
 											<div class="flex items-center text-xs text-muted-foreground sm:text-sm">
 												<Calendar class="mr-2 h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4" />
-												<span>Established {formatDate(organization.created_at)}</span>
+												<span
+													>{$t('common.organizations.established')}
+													{formatDate(organization.created_at)}</span
+												>
 											</div>
 
 											<div
 												class="w-full rounded-lg bg-primary/10 px-3 py-2 text-center text-sm font-medium text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:text-base"
 											>
 												<Users class="mr-2 inline h-3 w-3 sm:h-4 sm:w-4" />
-												View Members
+												{$t('common.organizations.view_members')}
 											</div>
 										</div>
 									</CardContent>

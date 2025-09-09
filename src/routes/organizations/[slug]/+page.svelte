@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { t } from '$lib/i18n';
 	import {
 		ArrowLeft,
 		User,
 		Building2,
-		Calendar,
 		Users,
 		Crown,
 		Shield,
@@ -108,10 +108,14 @@
 
 <svelte:head>
 	{#if type === 'organization'}
-		<title>{organization.name} - Organization Members | Village Organizations</title>
+		<title
+			>{organization.name} - {$t('common.organizations.organization_members')} | {$t(
+				'common.organizations.title'
+			)}</title
+		>
 		<meta name="description" content="View members of {organization.name} organization" />
 	{:else}
-		<title>{member.name} - {organization.name} | Village Organizations</title>
+		<title>{member.name} - {organization.name} | {$t('common.organizations.title')}</title>
 		<meta
 			name="description"
 			content="Profile of {member.name}, {formatPosition(member.position)} of {organization.name}"
@@ -121,136 +125,99 @@
 
 <div class="min-h-screen bg-background">
 	<!-- Navigation Header -->
-	<div class="sticky top-0 z-40 bg-card/50 backdrop-blur-sm">
-		<div class="container mx-auto px-4 py-4 sm:px-6 lg:px-8">
-			<div class="flex items-center gap-4">
-				<Button variant="ghost" size="sm" onclick={() => goto('/organizations')} class="gap-2">
-					<ArrowLeft class="h-4 w-4" />
-					<span class="hidden sm:inline">Back to Organizations</span>
-					<span class="sm:hidden">Back</span>
-				</Button>
-				<div class="flex items-center gap-2 text-sm text-muted-foreground">
-					<span>Organizations</span>
-					<span>/</span>
-					{#if type === 'organization'}
-						<span class="font-medium text-foreground">{organization.name}</span>
-					{:else}
-						<span class="font-medium text-foreground">{member.name}</span>
-					{/if}
-				</div>
+	<div class="container mx-auto sm:px-6 md:px-4 md:py-4 lg:px-8">
+		<div class="flex items-center gap-4">
+			<Button variant="ghost" size="sm" onclick={() => goto('/organizations')} class="gap-2">
+				<ArrowLeft class="h-4 w-4" />
+				<span class="hidden sm:inline">{$t('common.organizations.back_to_organizations')}</span>
+				<span class="sm:hidden">{$t('common.organizations.back')}</span>
+			</Button>
+			<div class="flex items-center gap-2 text-sm text-muted-foreground">
+				<span>{$t('common.organizations.title')}</span>
+				<span>/</span>
+				{#if type === 'organization'}
+					<span class="font-medium text-foreground">{organization.name}</span>
+				{:else}
+					<span class="font-medium text-foreground">{member.name}</span>
+				{/if}
 			</div>
 		</div>
 	</div>
 
 	<!-- Main Content -->
-	<div class="container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+	<div class="px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
 		<div class="mx-auto max-w-6xl space-y-8">
-			<!-- Organization/Member Profile Header -->
-			<Card
-				class="overflow-hidden border-2 bg-gradient-to-r from-primary/10 to-primary/5 shadow-lg"
-			>
-				<CardHeader class="pb-8">
-					<div class="flex flex-col gap-6 lg:flex-row lg:items-center">
-						<!-- Profile Image -->
-						<div class="flex justify-center lg:justify-start">
-							{#if type === 'organization'}
-								<div
-									class="flex h-32 w-32 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 sm:text-5xl lg:h-48 lg:w-48 lg:text-6xl"
-								>
-									{organization.name.charAt(0).toUpperCase()}
-								</div>
-							{:else if member.photo_url}
-								<img
-									src={member.photo_url}
-									alt={member.name}
-									class="h-32 w-32 rounded-full object-cover shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 lg:h-48 lg:w-48"
-								/>
-							{:else}
-								<div
-									class="flex h-32 w-32 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 sm:text-5xl lg:h-48 lg:w-48 lg:text-6xl"
-								>
-									{member.name.charAt(0).toUpperCase()}
-								</div>
-							{/if}
-						</div>
-
-						<!-- Profile Info -->
-						<div class="flex-1 space-y-4 text-center lg:text-left">
-							<div>
-								<h1 class="mb-2 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-									{#if type === 'organization'}
-										{organization.name}
-									{:else}
-										{member.name}
-									{/if}
-								</h1>
-								{#if type === 'organization'}
-									<p class="mb-3 text-lg text-muted-foreground">Village Organization</p>
-									{#if organization.description}
-										<p class="max-w-2xl text-base leading-relaxed text-muted-foreground">
-											{organization.description}
-										</p>
-									{/if}
-								{:else}
-									<p class="mb-3 text-lg text-muted-foreground">
-										Member of {organization.name}
-									</p>
-									<div class="flex flex-wrap justify-center gap-2 lg:justify-start">
-										<span
-											class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium {getPositionBadgeColor(
-												member.position
-											)}"
-										>
-											<User class="h-4 w-4" />
-											{formatPosition(member.position)}
-										</span>
-									</div>
-								{/if}
-							</div>
-
-							<div
-								class="flex flex-col justify-center gap-4 pt-4 sm:flex-row sm:items-center lg:justify-start"
-							>
-								{#if type === 'organization'}
-									<div class="flex items-center gap-2 text-muted-foreground">
-										<Calendar class="h-5 w-5" />
-										<span>Established {new Date(organization.created_at).getFullYear()}</span>
-									</div>
-									<div class="flex items-center gap-2 text-muted-foreground">
-										<Users class="h-5 w-5" />
-										<span>{organizationMembers.length} Members</span>
-									</div>
-								{:else}
-									<div class="flex items-center gap-2 text-muted-foreground">
-										<Building2 class="h-5 w-5" />
-										<span class="font-medium">{organization.name}</span>
-									</div>
-									<div class="flex items-center gap-2 text-muted-foreground">
-										<Calendar class="h-5 w-5" />
-										<span>Member since {new Date(member.created_at).getFullYear()}</span>
-									</div>
-								{/if}
-							</div>
-						</div>
-					</div>
-				</CardHeader>
-			</Card>
-
 			<!-- Member Details & Organization Info -->
 			<div class="space-y-8">
 				{#if type === 'organization'}
-					<!-- Organization Description -->
 					{#if organization.description}
-						<Card>
-							<CardHeader>
-								<CardTitle class="flex items-center gap-2">
-									<Building2 class="h-5 w-5" />
-									About {organization.name}
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<p class="leading-relaxed text-foreground">{organization.description}</p>
-							</CardContent>
+						<Card
+							class="overflow-hidden bg-gradient-to-r from-primary/10 to-primary/5 px-8 shadow-lg"
+						>
+							<div class="flex flex-col gap-6 lg:flex-row lg:items-center">
+								<!-- Profile Image -->
+								<div class="flex justify-center lg:justify-start">
+									{#if type === 'organization'}
+										<div
+											class="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 sm:text-5xl lg:h-48 lg:w-48 lg:text-6xl"
+										>
+											{organization.name.charAt(0).toUpperCase()}
+										</div>
+									{:else if member.photo_url}
+										<img
+											src={member.photo_url}
+											alt={member.name}
+											class="h-24 w-24 rounded-full object-cover shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 lg:h-48 lg:w-48"
+										/>
+									{:else}
+										<div
+											class="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 md:text-5xl"
+										>
+											{member.name.charAt(0).toUpperCase()}
+										</div>
+									{/if}
+								</div>
+
+								<!-- Profile Info -->
+								<div class="flex-1 space-y-4 text-center lg:text-left">
+									<div>
+										<h1 class="mb-2 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+											{#if type === 'organization'}
+												{organization.name}
+											{:else}
+												{member.name}
+											{/if}
+										</h1>
+										{#if type === 'organization'}
+											<p class="mb-3 text-lg text-muted-foreground">
+												{$t('common.organizations.village_organization')}
+											</p>
+											{#if organization.description}
+												<p class="text-base leading-relaxed text-muted-foreground">
+													{organization.description}
+												</p>
+											{/if}
+										{:else}
+											<p class="mb-3 text-lg text-muted-foreground">
+												{$t('common.organizations.member_of').replace(
+													'{organization}',
+													organization.name
+												)}
+											</p>
+											<div class="flex flex-wrap justify-center gap-2 lg:justify-start">
+												<span
+													class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium {getPositionBadgeColor(
+														member.position
+													)}"
+												>
+													<User class="h-4 w-4" />
+													{formatPosition(member.position)}
+												</span>
+											</div>
+										{/if}
+									</div>
+								</div>
+							</div>
 						</Card>
 					{/if}
 
@@ -259,10 +226,10 @@
 						<CardHeader class="">
 							<CardTitle class="flex items-center gap-2 text-2xl">
 								<Users class="h-6 w-6" />
-								Organizational Structure
+								{$t('common.organizations.organizational_structure')}
 							</CardTitle>
 							<p class="mt-2">
-								The organizational structure and team members of {organization.name}
+								{$t('common.organizations.structure_desc').replace('{name}', organization.name)}
 							</p>
 						</CardHeader>
 						<CardContent class="space-y-8 pt-8">
@@ -273,7 +240,7 @@
 										class="mb-6 flex items-center justify-center gap-2 text-xl font-bold text-foreground"
 									>
 										<Crown class="h-6 w-6 text-yellow-500" />
-										Leadership
+										{$t('common.organizations.leadership')}
 									</h3>
 									<div class="flex justify-center">
 										{#each hierarchy.leaders as leader (leader.id)}
@@ -325,7 +292,7 @@
 										class="mb-6 flex items-center justify-center gap-2 text-xl font-bold text-foreground"
 									>
 										<Shield class="h-6 w-6 text-blue-500" />
-										Key Positions
+										{$t('common.organizations.key_positions')}
 									</h3>
 									<div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
 										{#each hierarchy.keyRoles as keyMember (keyMember.id)}
@@ -382,7 +349,7 @@
 										class="mb-6 flex items-center justify-center gap-2 text-xl font-bold text-foreground"
 									>
 										<Briefcase class="h-6 w-6 text-purple-500" />
-										Departments
+										{$t('common.organizations.departments')}
 									</h3>
 									<div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
 										{#each hierarchy.departments as deptMember (deptMember.id)}
@@ -441,7 +408,7 @@
 											class="mb-2 flex items-center justify-center gap-2 text-xl font-bold text-foreground"
 										>
 											<UserCheck class="h-6 w-6 text-green-500" />
-											General Members
+											{$t('common.organizations.general_members')}
 										</h3>
 										<div class="mx-auto h-1 w-24 rounded-full bg-primary"></div>
 									</div>
@@ -502,25 +469,33 @@
 								<CardHeader>
 									<CardTitle class="flex items-center gap-2">
 										<User class="h-5 w-5" />
-										About {member.name}
+										{$t('common.organizations.about').replace('{name}', member.name)}
 									</CardTitle>
 								</CardHeader>
 								<CardContent class="space-y-4">
 									<div class="grid gap-4 sm:grid-cols-2">
 										<div class="space-y-2">
-											<div class="text-sm font-medium text-muted-foreground">Position</div>
+											<div class="text-sm font-medium text-muted-foreground">
+												{$t('common.organizations.position')}
+											</div>
 											<p class="font-medium text-foreground">{formatPosition(member.position)}</p>
 										</div>
 										<div class="space-y-2">
-											<div class="text-sm font-medium text-muted-foreground">Organization</div>
+											<div class="text-sm font-medium text-muted-foreground">
+												{$t('common.organizations.organization')}
+											</div>
 											<p class="font-medium text-foreground">{organization.name}</p>
 										</div>
 										<div class="space-y-2">
-											<div class="text-sm font-medium text-muted-foreground">Member ID</div>
+											<div class="text-sm font-medium text-muted-foreground">
+												{$t('common.organizations.member_id')}
+											</div>
 											<p class="font-mono text-sm text-muted-foreground">#{member.id.slice(-8)}</p>
 										</div>
 										<div class="space-y-2">
-											<div class="text-sm font-medium text-muted-foreground">Joined Date</div>
+											<div class="text-sm font-medium text-muted-foreground">
+												{$t('common.organizations.joined_date')}
+											</div>
 											<p class="text-foreground">
 												{new Date(member.created_at).toLocaleDateString('en-US', {
 													year: 'numeric',
@@ -534,7 +509,7 @@
 									{#if organization.description}
 										<div class="space-y-2 border-t border-border pt-4">
 											<div class="text-sm font-medium text-muted-foreground">
-												Organization Description
+												{$t('common.organizations.organization_description')}
 											</div>
 											<p class="leading-relaxed text-foreground">{organization.description}</p>
 										</div>
@@ -549,7 +524,7 @@
 								<CardHeader>
 									<CardTitle class="flex items-center gap-2">
 										<Users class="h-5 w-5" />
-										Other Members
+										{$t('common.organizations.other_members')}
 									</CardTitle>
 								</CardHeader>
 								<CardContent>
@@ -589,7 +564,10 @@
 											{#if organizationMembers.length > 10}
 												<div class="border-t border-border pt-2">
 													<p class="text-center text-sm text-muted-foreground">
-														And {organizationMembers.length - 10} more members...
+														{$t('common.organizations.more_members').replace(
+															'{count}',
+															organizationMembers.length - 10
+														)}
 													</p>
 												</div>
 											{/if}
@@ -605,7 +583,7 @@
 							<!-- Quick Actions -->
 							<Card>
 								<CardHeader>
-									<CardTitle class="text-lg">Quick Actions</CardTitle>
+									<CardTitle class="text-lg">{$t('common.organizations.quick_actions')}</CardTitle>
 								</CardHeader>
 								<CardContent class="space-y-3">
 									<Button
@@ -614,7 +592,7 @@
 										onclick={() => goto('/organizations')}
 									>
 										<Building2 class="h-4 w-4" />
-										View All Organizations
+										{$t('common.organizations.view_all_organizations')}
 									</Button>
 									<Button
 										variant="outline"
@@ -622,7 +600,7 @@
 										onclick={() => goto(`/organizations/${createSlug(organization.name)}`)}
 									>
 										<Users class="h-4 w-4" />
-										View Organization
+										{$t('common.organizations.view_organization')}
 									</Button>
 								</CardContent>
 							</Card>
