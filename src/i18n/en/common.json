@@ -15,6 +15,16 @@
 		"explore_button": "Explore Our Village",
 		"learn_more": "Learn More"
 	},
+	"location": {
+		"title": "Village Location",
+		"subtitle": "Discover where our beautiful village is located",
+		"open_maps": "Open in Maps",
+		"village_info": "Village Information",
+		"coordinates": "Coordinates",
+		"quick_actions": "Quick Actions",
+		"get_directions": "Get Directions",
+		"copy_coordinates": "Copy Coordinates"
+	},
 	"stats": {
 		"population": "Population",
 		"population_count": "2,500+",
@@ -94,6 +104,8 @@
 		}
 	},
 	"features": {
+		"title": "Explore Our Village",
+		"subtitle": "Discover the unique charm and attractions our village has to offer",
 		"community": {
 			"title": "Strong Community",
 			"description": "A close-knit community that values tradition, cooperation, and mutual support in daily life."

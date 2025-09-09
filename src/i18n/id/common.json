@@ -15,6 +15,16 @@
 		"explore_button": "Jelajahi Desa Kami",
 		"learn_more": "Pelajari Lebih Lanjut"
 	},
+	"location": {
+		"title": "Lokasi Desa",
+		"subtitle": "Temukan dimana desa indah kami berada",
+		"open_maps": "Buka di Maps",
+		"village_info": "Informasi Desa",
+		"coordinates": "Koordinat",
+		"quick_actions": "Aksi Cepat",
+		"get_directions": "Dapatkan Arah",
+		"copy_coordinates": "Salin Koordinat"
+	},
 	"stats": {
 		"population": "Penduduk",
 		"population_count": "2.500+",
@@ -94,6 +104,8 @@
 		}
 	},
 	"features": {
+		"title": "Jelajahi Desa Kami",
+		"subtitle": "Temukan keunikan dan pesona yang ditawarkan oleh desa kami",
 		"community": {
 			"title": "Komunitas yang Kuat",
 			"description": "Komunitas yang erat yang menghargai tradisi, kerjasama, dan saling mendukung dalam kehidupan sehari-hari."
