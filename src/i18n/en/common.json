@@ -25,6 +25,49 @@
 		"get_directions": "Get Directions",
 		"copy_coordinates": "Copy Coordinates"
 	},
+	"population": {
+		"title": "Population Statistics",
+		"subtitle": "Comprehensive demographic data and insights about our village community",
+		"cards": {
+			"total_population": "Total Population",
+			"total_households": "Total Households",
+			"male_population": "Male",
+			"female_population": "Female"
+		},
+		"charts": {
+			"total_population_chart": "Total Population",
+			"gender_distribution": "Gender Distribution",
+			"age_distribution": "Age Distribution per RT",
+			"voting_rights": "Voting Rights Karang Taruna per RT",
+			"population_label": "Population",
+			"households_label": "Households",
+			"total_label": "Total",
+			"male_label": "Male",
+			"female_label": "Female",
+			"voters_label": "Voters",
+			"blue_team": "Blue Team",
+			"orange_team": "Orange Team",
+			"people": "people"
+		},
+		"age_groups": {
+			"toddlers": "Toddlers",
+			"children": "Children",
+			"adults": "Adults",
+			"elderly": "Elderly"
+		},
+		"rt_labels": {
+			"rt_01": "RT 01",
+			"rt_03": "RT 03",
+			"rt_04": "RT 04"
+		},
+		"no_data": "No data available",
+		"no_data_description": "No population statistics data is available to display yet.",
+		"no_data_available": "No population data available",
+		"load_failed": "Failed to load population data",
+		"loading_failed": "Failed to Load Data",
+		"loading_error": "Error loading population data. Please try again.",
+		"try_again": "Try Again"
+	},
 	"stats": {
 		"population": "Population",
 		"population_count": "2,500+",

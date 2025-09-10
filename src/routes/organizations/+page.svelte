@@ -143,8 +143,6 @@
 								<Card
 									class="cursor-pointer overflow-hidden border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:hover:-translate-y-2"
 								>
-									<div class="absolute top-0 left-0 h-1 w-full bg-primary sm:h-2"></div>
-
 									<CardHeader class="px-4 pt-6 pb-4 sm:px-6 sm:pt-8 sm:pb-6">
 										<div class="mb-3 flex items-start justify-between sm:mb-4">
 											<div

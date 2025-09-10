@@ -17,13 +17,56 @@
 	},
 	"location": {
 		"title": "Lokasi Desa",
-		"subtitle": "Temukan dimana desa indah kami berada",
+		"subtitle": "Temukan lokasi desa kami yang indah",
 		"open_maps": "Buka di Maps",
 		"village_info": "Informasi Desa",
 		"coordinates": "Koordinat",
 		"quick_actions": "Aksi Cepat",
-		"get_directions": "Dapatkan Arah",
+		"get_directions": "Petunjuk Arah",
 		"copy_coordinates": "Salin Koordinat"
+	},
+	"population": {
+		"title": "Statistik Penduduk",
+		"subtitle": "Data demografis lengkap dan wawasan tentang komunitas desa kami",
+		"cards": {
+			"total_population": "Total Penduduk",
+			"total_households": "Total Kepala Keluarga",
+			"male_population": "Laki-laki",
+			"female_population": "Perempuan"
+		},
+		"charts": {
+			"total_population_chart": "Total Penduduk",
+			"gender_distribution": "Distribusi Jenis Kelamin",
+			"age_distribution": "Distribusi Usia per RT",
+			"voting_rights": "Hak Pilih Karang Taruna per RT",
+			"population_label": "Penduduk",
+			"households_label": "Kepala Keluarga",
+			"total_label": "Total",
+			"male_label": "Laki-laki",
+			"female_label": "Perempuan",
+			"voters_label": "Pemilih",
+			"blue_team": "Tim Biru",
+			"orange_team": "Tim Oranye",
+			"people": "jiwa"
+		},
+		"age_groups": {
+			"toddlers": "Balita",
+			"children": "Anak-anak",
+			"adults": "Dewasa",
+			"elderly": "Lansia"
+		},
+		"rt_labels": {
+			"rt_01": "RT 01",
+			"rt_03": "RT 03",
+			"rt_04": "RT 04"
+		},
+		"no_data": "Data tidak tersedia",
+		"no_data_description": "Belum ada data statistik penduduk yang dapat ditampilkan.",
+		"no_data_available": "Data populasi tidak tersedia",
+		"load_failed": "Gagal memuat data populasi",
+		"loading_failed": "Gagal Memuat Data",
+		"loading_error": "Gagal memuat data penduduk. Silakan coba lagi.",
+		"try_again": "Coba Lagi"
 	},
 	"stats": {
 		"population": "Penduduk",
