@@ -28,7 +28,7 @@
 	}
 
 	function getPositionBadgeColor(position: string): string {
-		const pos = position.toLowerCase();
+		const pos = position.toLowerCase().trim();
 		if (pos.includes('ketua') || pos.includes('chair') || pos.includes('president')) {
 			return 'bg-primary text-primary-foreground';
 		}
@@ -38,8 +38,17 @@
 		if (pos.includes('bendahara') || pos.includes('treasurer')) {
 			return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100';
 		}
+		if (pos.includes('humas')) {
+			return 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-100';
+		}
 		if (pos.includes('pemasaran') || pos.includes('marketing')) {
 			return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100';
+		}
+		if (pos.includes('pj')) {
+			return 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100';
+		}
+		if (pos.includes('divisi')) {
+			return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100';
 		}
 		if (
 			pos.includes('produksi') ||
@@ -48,6 +57,9 @@
 			pos.includes('operation')
 		) {
 			return 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-100';
+		}
+		if (pos.includes('anggota') || pos.includes('member')) {
+			return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100';
 		}
 		return 'bg-muted text-muted-foreground';
 	}
@@ -64,43 +76,169 @@
 
 	// Helper function to get position hierarchy level
 	function getPositionLevel(position: string): number {
-		const pos = position.toLowerCase();
-		if (pos.includes('ketua') || pos.includes('chair') || pos.includes('president')) return 1;
+		// Handle ALL possible whitespace including leading/trailing spaces, newlines, tabs
+		// Also normalize multiple spaces to single spaces and trim everything
+		const pos = position
+			.replace(/[\r\n\t\u00A0\u2000-\u200B\u2028\u2029]/g, ' ') // Replace all whitespace chars with space
+			.replace(/\s+/g, ' ') // Normalize multiple spaces to single space
+			.trim() // Remove leading and trailing spaces
+			.toLowerCase();
+
+		// Debug log to see what positions we're getting - now showing raw position clearly
+		console.log('RAW Position:', JSON.stringify(position), 'Normalized:', JSON.stringify(pos));
+
+		// More specific matching for leadership positions
 		if (
+			pos === 'ketua' ||
+			pos.includes('ketua') ||
+			pos.includes('chair') ||
+			pos.includes('president')
+		) {
+			console.log('  -> Level 1 (Leadership)');
+			return 1;
+		}
+
+		// More specific matching for key roles
+		if (
+			pos === 'sekretaris' ||
 			pos.includes('sekretaris') ||
+			pos === 'secretary' ||
 			pos.includes('secretary') ||
+			pos === 'bendahara' ||
 			pos.includes('bendahara') ||
+			pos === 'treasurer' ||
 			pos.includes('treasurer')
-		)
+		) {
+			console.log('  -> Level 2 (Key Roles)');
 			return 2;
+		}
+
+		// More specific matching for departments - handle PJ with comprehensive patterns
 		if (
+			pos.includes('divisi') ||
+			pos.includes('humas') ||
 			pos.includes('pemasaran') ||
 			pos.includes('marketing') ||
 			pos.includes('produksi') ||
 			pos.includes('production') ||
 			pos.includes('operasi') ||
-			pos.includes('operation')
-		)
+			pos.includes('operation') ||
+			pos.includes('pj ') || // handles "pj pemasaran", "pj produksi", etc.
+			pos.startsWith('pj ') ||
+			pos.endsWith(' pj') ||
+			pos.includes(' pj ') || // handles middle PJ like "some pj something"
+			/\bpj\b/i.test(pos) // word boundary match for PJ (case insensitive)
+		) {
+			console.log('  -> Level 3 (Departments)');
 			return 3;
-		return 4;
+		}
+
+		// Check for "ANGGOTA" specifically as level 4 (general members)
+		if (pos === 'anggota' || pos.includes('anggota') || pos.includes('member')) {
+			console.log('  -> Level 4 (General Members)');
+			return 4;
+		}
+
+		console.log('  -> Level 4 (Default - General Members)');
+		return 4; // Default to general members
+	}
+
+	// Helper function to get leadership sub-order (for sorting within leadership)
+	function getLeadershipOrder(position: string): number {
+		const pos = position.toLowerCase().trim();
+		// Check for exact "ketua" without numbers - highest priority (0)
+		if (pos === 'ketua' || pos === 'chair' || pos === 'president') return 0;
+
+		// Check for numbered positions like "ketua 1", "ketua 2", etc.
+		const numberedMatch = pos.match(/ketua\s*(\d+)|chair\s*(\d+)|president\s*(\d+)/);
+		if (numberedMatch) {
+			const number = parseInt(numberedMatch[1] || numberedMatch[2] || numberedMatch[3] || '1');
+			return number; // Returns 1, 2, 3, etc.
+		}
+
+		// Other leadership positions (like "ketua bidang", "wakil ketua", etc.)
+		if (pos.includes('ketua') || pos.includes('chair') || pos.includes('president')) return 999;
+
+		return 1000; // Not a leadership position
+	}
+
+	// Helper function to get key role sub-order (for sorting secretaries and treasurers)
+	function getKeyRoleOrder(position: string): number {
+		const pos = position.toLowerCase().trim();
+
+		// For secretaries
+		if (pos.includes('sekretaris') || pos.includes('secretary')) {
+			// Check for exact "sekretaris" without numbers
+			if (pos === 'sekretaris' || pos === 'secretary') return 0;
+
+			// Check for numbered positions like "sekretaris 1", "sekretaris 2", etc.
+			const numberedMatch = pos.match(/sekretaris\s*(\d+)|secretary\s*(\d+)/);
+			if (numberedMatch) {
+				const number = parseInt(numberedMatch[1] || numberedMatch[2] || '1');
+				return number;
+			}
+			return 999;
+		}
+
+		// For treasurers
+		if (pos.includes('bendahara') || pos.includes('treasurer')) {
+			return 1000; // Bendahara comes after all secretaries
+		}
+
+		return 2000;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	function organizeByHierarchy(members: any[]) {
-		const allMembers = type === 'organization' ? members : [member, ...members];
+		// For organization view, use all organizationMembers
+		// For member view, include the current member + organizationMembers
+		const allMembers = type === 'organization' ? members : member ? [member, ...members] : members;
+
+		console.log(
+			'All members:',
+			allMembers.map((m) => ({ name: m.name, position: m.position }))
+		);
+
 		const sorted = allMembers.sort((a, b) => {
 			const levelA = getPositionLevel(a.position);
 			const levelB = getPositionLevel(b.position);
+
+			// First sort by hierarchy level
 			if (levelA !== levelB) return levelA - levelB;
+
+			// If both are leadership positions (level 1), sort by leadership order
+			if (levelA === 1 && levelB === 1) {
+				const orderA = getLeadershipOrder(a.position);
+				const orderB = getLeadershipOrder(b.position);
+				if (orderA !== orderB) return orderA - orderB;
+			}
+
+			// If both are key roles (level 2), sort by key role order
+			if (levelA === 2 && levelB === 2) {
+				const orderA = getKeyRoleOrder(a.position);
+				const orderB = getKeyRoleOrder(b.position);
+				if (orderA !== orderB) return orderA - orderB;
+			}
+
+			// Finally sort by name
 			return a.name.localeCompare(b.name);
 		});
 
-		return {
+		const result = {
 			leaders: sorted.filter((m) => getPositionLevel(m.position) === 1),
 			keyRoles: sorted.filter((m) => getPositionLevel(m.position) === 2),
 			departments: sorted.filter((m) => getPositionLevel(m.position) === 3),
 			others: sorted.filter((m) => getPositionLevel(m.position) === 4)
 		};
+
+		console.log('Hierarchy result:', {
+			leaders: result.leaders.map((m) => ({ name: m.name, position: m.position })),
+			keyRoles: result.keyRoles.map((m) => ({ name: m.name, position: m.position })),
+			departments: result.departments.map((m) => ({ name: m.name, position: m.position })),
+			others: result.others.map((m) => ({ name: m.name, position: m.position }))
+		});
+
+		return result;
 	}
 
 	let hierarchy = $derived(organizeByHierarchy(organizationMembers));
@@ -114,7 +252,7 @@
 			)}</title
 		>
 		<meta name="description" content="View members of {organization.name} organization" />
-	{:else}
+	{:else if member}
 		<title>{member.name} - {organization.name} | {$t('common.organizations.title')}</title>
 		<meta
 			name="description"
@@ -137,7 +275,7 @@
 				<span>/</span>
 				{#if type === 'organization'}
 					<span class="font-medium text-foreground">{organization.name}</span>
-				{:else}
+				{:else if member}
 					<span class="font-medium text-foreground">{member.name}</span>
 				{/if}
 			</div>
@@ -163,13 +301,13 @@
 										>
 											{organization.name.charAt(0).toUpperCase()}
 										</div>
-									{:else if member.photo_url}
+									{:else if member && member.photo_url}
 										<img
 											src={member.photo_url}
 											alt={member.name}
 											class="h-24 w-24 rounded-full object-cover shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 lg:h-48 lg:w-48"
 										/>
-									{:else}
+									{:else if member}
 										<div
 											class="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 md:text-5xl"
 										>
@@ -184,7 +322,7 @@
 										<h1 class="mb-2 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
 											{#if type === 'organization'}
 												{organization.name}
-											{:else}
+											{:else if member}
 												{member.name}
 											{/if}
 										</h1>
@@ -197,7 +335,7 @@
 													{organization.description}
 												</p>
 											{/if}
-										{:else}
+										{:else if member}
 											<p class="mb-3 text-lg text-muted-foreground">
 												{$t('common.organizations.member_of').replace(
 													'{organization}',
@@ -242,9 +380,15 @@
 										<Crown class="h-6 w-6 text-yellow-500" />
 										{$t('common.organizations.leadership')}
 									</h3>
-									<div class="flex justify-center">
+									<div
+										class="mx-auto grid max-w-4xl gap-6 {hierarchy.leaders.length === 1
+											? 'max-w-md grid-cols-1'
+											: hierarchy.leaders.length === 2
+												? 'grid-cols-1 md:grid-cols-2'
+												: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}"
+									>
 										{#each hierarchy.leaders as leader (leader.id)}
-											<div class="group w-full max-w-md">
+											<div class="group">
 												<Card
 													class="cursor-pointer overflow-hidden border border-border bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 												>
@@ -459,7 +603,7 @@
 							{/if}
 						</CardContent>
 					</Card>
-				{:else}
+				{:else if member}
 					<!-- Individual Member View -->
 					<div class="grid gap-8 lg:grid-cols-3">
 						<!-- Member Details -->

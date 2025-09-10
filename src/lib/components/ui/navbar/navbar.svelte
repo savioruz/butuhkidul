@@ -39,7 +39,7 @@
 		<!-- Desktop Navigation -->
 		<div class="hidden items-center gap-6 md:flex">
 			{#each navigationConfig as item (item.href)}
-				{@const isActive = page.url.pathname === item.href}
+				{@const isActive = page.url.pathname.includes(item.href)}
 				<a
 					href={item.href}
 					class="smooth-transition text-sm font-medium {isActive

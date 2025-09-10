@@ -43,7 +43,7 @@ export const load: ServerLoad = async ({ params }) => {
 			throw error(500, 'Invalid organizations data format');
 		}
 
-		const membersResponse = await unitsApi.getUnitMembers({ limit: 50 });
+		const membersResponse = await unitsApi.getUnitMembers({ limit: 100 });
 		if (!membersResponse || !membersResponse.data) {
 			throw error(500, 'Failed to load organization members');
 		}
@@ -87,14 +87,10 @@ export const load: ServerLoad = async ({ params }) => {
 				throw error(404, 'No members found in this organization');
 			}
 
-			// Use the first member as the primary member for display
-			const member = organizationMembers[0];
-			const otherMembers = organizationMembers.slice(1);
-
 			return {
-				member,
+				member: null,
 				organization,
-				organizationMembers: otherMembers,
+				organizationMembers: organizationMembers, // Include ALL members for organization view
 				slug: createSlug(organization.name),
 				type: 'organization' as const
 			};

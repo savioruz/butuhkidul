@@ -11,7 +11,7 @@
 		CardHeader,
 		CardTitle
 	} from '$lib/components/ui/card';
-	import { Users, Calendar, Building2 } from 'lucide-svelte';
+	import { Users, Building2 } from 'lucide-svelte';
 
 	let organizations: Unit[] = $state([]);
 	let isLoading = $state(true);
@@ -53,14 +53,6 @@
 		} finally {
 			isLoading = false;
 		}
-	}
-
-	function formatDate(dateString: string): string {
-		return new Date(dateString).toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
 	}
 
 	onMount(() => {
@@ -141,7 +133,7 @@
 						{#each organizations as organization (organization.id)}
 							<a href="/organizations/{createSlug(organization.name)}" class="group block">
 								<Card
-									class="cursor-pointer overflow-hidden border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:hover:-translate-y-2"
+									class="flex h-120 w-80 cursor-pointer flex-col overflow-hidden border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:hover:-translate-y-2"
 								>
 									<CardHeader class="px-4 pt-6 pb-4 sm:px-6 sm:pt-8 sm:pb-6">
 										<div class="mb-3 flex items-start justify-between sm:mb-4">
@@ -177,16 +169,10 @@
 										{/if}
 									</CardHeader>
 
-									<CardContent class="px-4 pt-0 pb-4 sm:px-6 sm:pb-6">
+									<CardContent
+										class="flex flex-grow flex-col justify-end px-4 pt-0 pb-4 sm:px-6 sm:pb-6"
+									>
 										<div class="space-y-3 sm:space-y-4">
-											<div class="flex items-center text-xs text-muted-foreground sm:text-sm">
-												<Calendar class="mr-2 h-3 w-3 flex-shrink-0 sm:h-4 sm:w-4" />
-												<span
-													>{$t('common.organizations.established')}
-													{formatDate(organization.created_at)}</span
-												>
-											</div>
-
 											<div
 												class="w-full rounded-lg bg-primary/10 px-3 py-2 text-center text-sm font-medium text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:text-base"
 											>

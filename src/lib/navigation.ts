@@ -6,11 +6,6 @@ export interface NavItem {
 
 export const navigationConfig: NavItem[] = [
 	{
-		href: '/',
-		label: 'Home',
-		translationKey: 'home'
-	},
-	{
 		href: '/histories',
 		label: 'Histories',
 		translationKey: 'histories'
