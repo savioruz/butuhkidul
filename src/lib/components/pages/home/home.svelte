@@ -170,6 +170,7 @@
 						href="#statistics"
 						class="group px-8 py-4 text-lg shadow-xl hover:shadow-2xl"
 						disabled={isLoading}
+						aria-label="Explore population statistics and demographics of Butuh Kidul village"
 					>
 						{$t('common.hero.explore_button')}
 						<ChevronRight class="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -180,6 +181,7 @@
 						href="/histories"
 						class="px-8 py-4 text-lg shadow-lg hover:shadow-xl"
 						disabled={isLoading}
+						aria-label="Learn more about Butuh Kidul village history and heritage"
 					>
 						{$t('common.hero.learn_more')}
 					</Button>
@@ -229,6 +231,7 @@
 							size="lg"
 							onclick={() => window.open(getGoogleMapsLink(), '_blank')}
 							class="group border-green-200 bg-white/80 backdrop-blur-sm transition-all hover:border-green-300 hover:bg-green-50 hover:shadow-lg dark:border-green-800 dark:bg-green-950/50 dark:hover:bg-green-900/50"
+							aria-label="Open Butuh Kidul village location in Google Maps"
 						>
 							<Navigation class="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
 							{$t('common.location.open_maps')}
@@ -319,6 +322,7 @@
 										size="lg"
 										onclick={() => window.open(getGoogleMapsLink(), '_blank')}
 										class="group w-full justify-start gap-3 border-blue-200 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 py-6 transition-all hover:border-blue-300 hover:from-blue-100 hover:to-indigo-100 hover:shadow-lg dark:border-blue-800 dark:from-blue-950/30 dark:to-indigo-950/30 dark:hover:from-blue-900/50 dark:hover:to-indigo-900/50"
+										aria-label="Get directions to Butuh Kidul village via Google Maps"
 									>
 										<div
 											class="rounded-lg bg-blue-100 p-2 transition-transform group-hover:scale-110 dark:bg-blue-900/50"
@@ -340,6 +344,7 @@
 											);
 										}}
 										class="group w-full justify-start gap-3 border-purple-200 bg-gradient-to-r from-purple-50/50 to-pink-50/50 py-6 transition-all hover:border-purple-300 hover:from-purple-100 hover:to-pink-100 hover:shadow-lg dark:border-purple-800 dark:from-purple-950/30 dark:to-pink-950/30 dark:hover:from-purple-900/50 dark:hover:to-pink-900/50"
+										aria-label="Copy Butuh Kidul village GPS coordinates to clipboard"
 									>
 										<div
 											class="rounded-lg bg-purple-100 p-2 transition-transform group-hover:scale-110 dark:bg-purple-900/50"
@@ -528,7 +533,12 @@
 					<Calendar class="mx-auto mb-4 h-12 w-12 text-red-600 dark:text-red-400" />
 					<h4 class="mb-2 text-lg font-semibold">{$t('common.articles.error_loading')}</h4>
 					<p class="mb-4 text-sm">{articlesError}</p>
-					<Button variant="outline" size="sm" onclick={() => window.location.reload()}>
+					<Button
+						variant="outline"
+						size="sm"
+						onclick={() => window.location.reload()}
+						aria-label="Try again to reload articles from Butuh Kidul village"
+					>
 						{$t('common.articles.try_again')}
 					</Button>
 				</div>
@@ -542,7 +552,12 @@
 					<Calendar class="mx-auto mb-4 h-12 w-12 text-gray-400 dark:text-gray-500" />
 					<h4 class="mb-2 text-lg font-semibold">{$t('common.articles.no_articles_found')}</h4>
 					<p class="mb-4 text-sm">{$t('common.articles.no_articles_published')}</p>
-					<Button variant="outline" href="/articles" size="sm">
+					<Button
+						variant="outline"
+						href="/articles"
+						size="sm"
+						aria-label="View all articles page for Butuh Kidul village"
+					>
 						{$t('common.articles.view_all_articles')}
 					</Button>
 				</div>
@@ -603,7 +618,11 @@
 						<!-- Article Content -->
 						<CardHeader class="pb-4">
 							<CardTitle class="line-clamp-2 text-xl transition-colors group-hover:text-primary">
-								<a href="/articles/{article.slug}" class="hover:underline">
+								<a
+									href="/articles/{article.slug}"
+									class="hover:underline"
+									aria-label="Read article: {article.title}"
+								>
 									{article.title}
 								</a>
 							</CardTitle>
@@ -627,6 +646,7 @@
 										href="/articles/{article.slug}"
 										size="sm"
 										class="h-auto p-0 text-xs text-primary hover:underline"
+										aria-label="Read more about: {article.title}"
 									>
 										{$t('common.articles.read_more')}
 										<ChevronRight class="ml-1 h-3 w-3" />
@@ -641,7 +661,12 @@
 
 		<!-- Browse All CTA -->
 		<div class="mt-12 text-center">
-			<Button href="/articles" size="lg" class="group px-8 py-4 text-lg shadow-xl hover:shadow-2xl">
+			<Button
+				href="/articles"
+				size="lg"
+				class="group px-8 py-4 text-lg shadow-xl hover:shadow-2xl"
+				aria-label="Browse all articles about Butuh Kidul village"
+			>
 				{$t('common.articles.browse_all')}
 				<ChevronRight class="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
 			</Button>

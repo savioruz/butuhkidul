@@ -10,16 +10,16 @@
 	"logo": "🇮🇩",
 	"hero": {
 		"welcome": "Selamat Datang di",
-		"village_name": "Desa Butuh Kidul",
-		"subtitle": "Sebuah desa yang indah terletak di jantung Indonesia, di mana tradisi bertemu dengan modernitas dan masyarakat berkembang dalam harmoni dengan alam.",
-		"explore_button": "Jelajahi Desa Kami",
+		"village_name": "Dusun Butuh Kidul",
+		"subtitle": "Sebuah dusun yang indah terletak di jantung Indonesia, di mana tradisi bertemu dengan modernitas dan masyarakat berkembang dalam harmoni dengan alam.",
+		"explore_button": "Jelajahi Dusun Kami",
 		"learn_more": "Pelajari Lebih Lanjut"
 	},
 	"location": {
-		"title": "Lokasi Desa",
-		"subtitle": "Temukan lokasi desa kami yang indah",
+		"title": "Lokasi Dusun",
+		"subtitle": "Temukan lokasi dusun kami yang indah",
 		"open_maps": "Buka di Maps",
-		"village_info": "Informasi Desa",
+		"village_info": "Informasi Dusun",
 		"coordinates": "Koordinat",
 		"quick_actions": "Aksi Cepat",
 		"get_directions": "Petunjuk Arah",
@@ -27,7 +27,7 @@
 	},
 	"population": {
 		"title": "Statistik Penduduk",
-		"subtitle": "Data demografis lengkap dan wawasan tentang komunitas desa kami",
+		"subtitle": "Data demografis lengkap dan wawasan tentang komunitas dusun kami",
 		"cards": {
 			"total_population": "Total Penduduk",
 			"total_households": "Total Kepala Keluarga",
@@ -78,26 +78,26 @@
 		"established": "Didirikan",
 		"established_year": "1945",
 		"established_desc": "Tahun sejarah",
-		"villages": "Desa",
+		"villages": "Dusun",
 		"villages_count": "1",
-		"villages_desc": "Sub-desa"
+		"villages_desc": "Sub-dusun"
 	},
 	"welcome": {
 		"title": "Selamat Datang di Komunitas Kami",
-		"message": "Desa Butuh Kidul adalah komunitas yang dinamis yang menghargai tradisi, merangkul kemajuan, dan menyambut pengunjung dengan tangan terbuka. Temukan warisan budaya yang kaya, keindahan alam, dan keramahan masyarakat kami.",
+		"message": "Dusun Butuh Kidul adalah komunitas yang dinamis yang menghargai tradisi, merangkul kemajuan, dan menyambut pengunjung dengan tangan terbuka. Temukan warisan budaya yang kaya, keindahan alam, dan keramahan masyarakat kami.",
 		"browse_articles": "Jelajahi Artikel",
 		"learn_history": "Pelajari Sejarah Kami"
 	},
 	"history": {
-		"title": "Sejarah Desa Kami",
+		"title": "Sejarah Dusun Kami",
 		"subtitle": "Jelajahi warisan kaya dan cerita-cerita yang membentuk komunitas kami sepanjang tahun.",
 		"preview_subtitle": "Temukan warisan dan tradisi kami",
-		"default_message": "Temukan sejarah dan warisan kaya desa kami yang diturunkan melalui generasi.",
+		"default_message": "Temukan sejarah dan warisan kaya dusun kami yang diturunkan melalui generasi.",
 		"view_all": "Lihat Semua",
 		"read_more": "Baca Selengkapnya",
-		"entry_title": "Sejarah Desa",
+		"entry_title": "Sejarah Dusun",
 		"no_history": "Belum ada entri sejarah yang tersedia saat ini.",
-		"meta_description": "Jelajahi sejarah dan warisan kaya Desa Butuh Kidul."
+		"meta_description": "Jelajahi sejarah dan warisan kaya Dusun Butuh Kidul."
 	},
 	"articles": {
 		"title": "Artikel Terbaru",
@@ -110,7 +110,7 @@
 		"search_placeholder": "Cari artikel...",
 		"search": "Cari",
 		"articles_count": "artikel",
-		"meta_description": "Baca berita dan artikel terbaru dari Desa Butuh Kidul.",
+		"meta_description": "Baca berita dan artikel terbaru dari Dusun Butuh Kidul.",
 		"loading_article": "Memuat Artikel",
 		"article_not_found": "Artikel Tidak Ditemukan",
 		"failed_to_load": "Gagal memuat artikel",
@@ -131,14 +131,14 @@
 		"loading_page": "Memuat halaman...",
 		"read_more": "Baca Selengkapnya",
 		"sample1": {
-			"title": "Pembangunan Infrastruktur Desa",
+			"title": "Pembangunan Infrastruktur Dusun",
 			"date": "November 2024",
 			"description": "Pelajari tentang perbaikan infrastruktur terbaru dan proyek pembangunan yang meningkatkan kualitas hidup warga kami."
 		},
 		"sample2": {
-			"title": "Upaya Konservasi Lingkungan",
+			"title": "Program Kesehatan Dusun",
 			"date": "Oktober 2024",
-			"description": "Temukan inisiatif berkelanjutan komunitas kami untuk melindungi dan melestarikan lingkungan alam untuk generasi mendatang."
+			"description": "Informasi tentang program kesehatan masyarakat yang diselenggarakan untuk meningkatkan kesejahteraan warga dusun."
 		},
 		"sample3": {
 			"title": "Acara dan Perayaan Komunitas",
@@ -147,8 +147,8 @@
 		}
 	},
 	"features": {
-		"title": "Jelajahi Desa Kami",
-		"subtitle": "Temukan keunikan dan pesona yang ditawarkan oleh desa kami",
+		"title": "Jelajahi Dusun Kami",
+		"subtitle": "Temukan keunikan dan pesona yang ditawarkan oleh dusun kami",
 		"community": {
 			"title": "Komunitas yang Kuat",
 			"description": "Komunitas yang erat yang menghargai tradisi, kerjasama, dan saling mendukung dalam kehidupan sehari-hari."
@@ -158,12 +158,12 @@
 			"description": "Dikelilingi oleh pemandangan hijau dan berkomitmen pada pelestarian lingkungan dan keberlanjutan."
 		},
 		"services": {
-			"title": "Layanan Desa",
+			"title": "Layanan Dusun",
 			"description": "Layanan dan fasilitas publik yang komprehensif untuk mendukung kebutuhan warga kami."
 		}
 	},
 	"umkm": {
-		"title": "Unit Usaha Desa (UMKM)",
+		"title": "Unit Usaha Dusun (UMKM)",
 		"subtitle": "Temukan berbagai unit usaha dan organisasi masyarakat yang mendorong ekonomi lokal dan pembangunan sosial kami",
 		"units_title": "Unit Usaha",
 		"members_title": "Anggota Unit",
@@ -187,7 +187,7 @@
 		"filter_by_position": "Filter berdasarkan jabatan"
 	},
 	"organizations": {
-		"title": "Organisasi Desa",
+		"title": "Organisasi Dusun",
 		"subtitle": "Jelajahi berbagai organisasi dan kelompok yang berkontribusi pada komunitas kami",
 		"loading": "Memuat Organisasi",
 		"loading_data": "Mengambil data organisasi...",
@@ -209,7 +209,7 @@
 		"key_positions": "Posisi Kunci",
 		"departments": "Departemen",
 		"general_members": "Anggota Umum",
-		"village_organization": "Organisasi Desa",
+		"village_organization": "Organisasi Dusun",
 		"member_of": "Anggota {organization}",
 		"member_id": "ID Anggota",
 		"joined_date": "Tanggal Bergabung",
