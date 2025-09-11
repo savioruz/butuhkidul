@@ -5,7 +5,6 @@
 	import type { VillagesResponse } from '@/types/village';
 	import type { ArticlesResponse } from '@/types/article';
 
-	// Define the expected data structure
 	interface PageData {
 		locale: string;
 		pathname: string;
