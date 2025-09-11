@@ -9,20 +9,30 @@
 	const showThreshold = 300;
 
 	onMount(() => {
+		let ticking = false;
+
 		const updateScrollY = () => {
 			scrollY = window.scrollY;
 			isVisible = scrollY > showThreshold;
+			ticking = false;
+		};
+
+		const handleScroll = () => {
+			if (!ticking) {
+				requestAnimationFrame(updateScrollY);
+				ticking = true;
+			}
 		};
 
 		// Initial check
 		updateScrollY();
 
-		// Listen for scroll events
-		window.addEventListener('scroll', updateScrollY);
+		// Listen for scroll events with passive option for better performance
+		window.addEventListener('scroll', handleScroll, { passive: true });
 
 		// Cleanup
 		return () => {
-			window.removeEventListener('scroll', updateScrollY);
+			window.removeEventListener('scroll', handleScroll);
 		};
 	});
 

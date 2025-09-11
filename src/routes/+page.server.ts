@@ -3,8 +3,13 @@ import { articlesApi } from '$lib/api/articles';
 import type { VillagesResponse } from '@/types/village';
 import type { ArticlesResponse } from '@/types/article';
 
-export const load = async () => {
+export const load = async ({ setHeaders }) => {
 	try {
+		// Set cache headers for better performance
+		setHeaders({
+			'cache-control': 'public, max-age=300, s-maxage=600' // 5 min browser, 10 min CDN
+		});
+
 		// Use Promise.allSettled to prevent one failed request from blocking the other
 		const [villageResult, articlesResult] = await Promise.allSettled([
 			// Fetch village data
@@ -17,7 +22,6 @@ export const load = async () => {
 			})
 		]);
 
-		// Handle village data result
 		const villageData: VillagesResponse | null =
 			villageResult.status === 'fulfilled' ? villageResult.value : null;
 		const villageError: string | null =
@@ -27,7 +31,6 @@ export const load = async () => {
 					: 'Failed to load village data'
 				: null;
 
-		// Handle articles data result
 		const articlesData: ArticlesResponse | null =
 			articlesResult.status === 'fulfilled' ? articlesResult.value : null;
 		const articlesError: string | null =
@@ -46,7 +49,6 @@ export const load = async () => {
 	} catch (error) {
 		console.error('Unexpected error in page server load:', error);
 
-		// Return safe fallback data
 		return {
 			villageData: null,
 			articlesData: null,

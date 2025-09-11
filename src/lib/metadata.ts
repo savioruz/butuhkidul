@@ -10,7 +10,7 @@ export const siteConfig = {
 		twitter: new URL('https://twitter.com/butuhkidul'), // Update with village social media
 		github: new URL('https://github.com/savioruz/butuhkidul') // Keep the GitHub repo
 	},
-	googleVerification: '@TODO - Replace with your Google verification code',
+	googleVerification: 'ZT3D3dKoFM37nsuKJcdsfMz3KVogiIxKxaY-8m7tp-Y',
 	yandexVerification: '@TODO - Replace with your Yandex verification code'
 } as const;
 

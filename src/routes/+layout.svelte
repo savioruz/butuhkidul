@@ -6,6 +6,7 @@
 	import { page } from '$app/state';
 	import { ModeWatcher } from 'mode-watcher';
 	import Navbar from '@/components/ui/navbar/navbar.svelte';
+	import { ScrollToTop } from '@/components/ui/scroll-to-top';
 	import { loadTranslations, locale } from '$lib/i18n';
 	import { onMount } from 'svelte';
 
@@ -31,6 +32,11 @@
 	<meta name="description" content={siteConfig.description} />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="utf-8" />
+
+	<link rel="dns-prefetch" href="//maps.googleapis.com" />
+	<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+	<link rel="preconnect" href="https://maps.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
 
 	<meta name="keywords" content={siteConfig.keywords} />
 	<meta name="author" content={siteConfig.name} />
@@ -73,4 +79,5 @@
 			{@render children()}
 		</div>
 	</main>
+	<ScrollToTop />
 {/if}
