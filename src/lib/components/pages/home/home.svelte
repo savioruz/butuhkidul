@@ -19,19 +19,32 @@
 		Map,
 		Navigation
 	} from 'lucide-svelte';
-	import { onMount } from 'svelte';
-	import { villageApi } from '$lib/api/village';
-	import { articlesApi } from '$lib/api/articles';
 	import type { Village, VillagesResponse } from '@/types/village';
 	import type { Article, ArticlesResponse } from '@/types/article';
 	import { getExcerpt } from '$lib/utils/markdown';
 
-	let villageData: VillagesResponse | null = $state(null);
-	let articlesData: ArticlesResponse | null = $state(null);
-	let isLoading = $state(true);
-	let isLoadingArticles = $state(true);
-	let error = $state<string | null>(null);
-	let articlesError = $state<string | null>(null);
+	// Accept server-side loaded data using $props()
+	let {
+		villageData: initialVillageData = null,
+		articlesData: initialArticlesData = null,
+		villageError: initialVillageError = null,
+		articlesError: initialArticlesError = null
+	}: {
+		villageData: VillagesResponse | null;
+		articlesData: ArticlesResponse | null;
+		villageError: string | null;
+		articlesError: string | null;
+	} = $props();
+
+	// Set up reactive state with initial server-side data
+	let villageData = $state(initialVillageData);
+	let articlesData = $state(initialArticlesData);
+	let error = $state(initialVillageError);
+	let articlesError = $state(initialArticlesError);
+
+	// Set loading states to false since data is already loaded server-side
+	let isLoading = $state(false);
+	let isLoadingArticles = $state(false);
 
 	let primaryVillage: Village | null = $state(null);
 	let latestArticles: Article[] = $state([]);
@@ -77,38 +90,12 @@
 		}
 	});
 
-	onMount(async () => {
-		// Load village data
-		try {
-			isLoading = true;
-			error = null;
-
-			const villagesResponse = await villageApi.getVillages();
-			villageData = villagesResponse;
-		} catch (err) {
-			console.error('Error fetching village data:', err);
-			error = err instanceof Error ? err.message : 'Failed to load village data';
-		} finally {
-			isLoading = false;
-		}
-
-		// Load articles data
-		try {
-			isLoadingArticles = true;
-			articlesError = null;
-
-			const articlesResponse = await articlesApi.getArticles({
-				active: true,
-				limit: 3,
-				page: 1
-			});
-			articlesData = articlesResponse;
-		} catch (err) {
-			console.error('Error fetching articles data:', err);
-			articlesError = err instanceof Error ? err.message : 'Failed to load articles';
-		} finally {
-			isLoadingArticles = false;
-		}
+	// Update reactive data when props change (for potential client-side navigation)
+	$effect(() => {
+		villageData = initialVillageData;
+		articlesData = initialArticlesData;
+		error = initialVillageError;
+		articlesError = initialArticlesError;
 	});
 </script>
 
