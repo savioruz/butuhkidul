@@ -40,7 +40,7 @@
 	--font-sans: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
 	--font-serif: Georgia, 'Times New Roman', serif;
 	--font-mono: monospace;
-	--radius: 0.625rem;
+	--radius: 0rem;
 	--shadow-x: 0px;
 	--shadow-y: 1px;
 	--shadow-blur: 4px;
@@ -110,11 +110,6 @@
 	--shadow-lg: 0px 2px 6px 0px hsl(0 0% 0% / 0.15), 0px 4px 6px -1px hsl(0 0% 0% / 0.15);
 	--shadow-xl: 0px 2px 6px 0px hsl(0 0% 0% / 0.15), 0px 8px 10px -1px hsl(0 0% 0% / 0.15);
 	--shadow-2xl: 0px 2px 6px 0px hsl(0 0% 0% / 0.38);
-}
-
-@theme {
-	--width-container-max: 1280px;
-	--spacing-gutter: 24px;
 }
 
 @theme inline {
@@ -191,10 +186,6 @@
 	@apply font-semibold text-primary;
 }
 
-.text-gradient-hover {
-	@apply hover:text-primary;
-}
-
 .smooth-transition {
 	@apply transition-all duration-300 ease-in-out;
 }
@@ -224,15 +215,6 @@
 	background-image:
 		linear-gradient(to right, oklch(0.9276 0.0058 264.5313 / 0.5) 1px, transparent 1px),
 		linear-gradient(to bottom, oklch(0.9276 0.0058 264.5313 / 0.5) 1px, transparent 1px);
-}
-
-.container {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: 1rem;
-	padding-right: 1rem;
-	max-width: 1280px;
 }
 
 /* Custom prose styles for markdown content */

@@ -115,7 +115,7 @@
 <section
 	class="grid-bg relative flex min-h-[calc(100dvh-64px)] flex-col items-center justify-center border-b border-border"
 >
-	<div class="mx-auto max-w-[--width-container-max] px-4 text-center md:px-6">
+	<div class="mx-auto max-w-7xl px-4 text-center md:px-6">
 		<div class="mb-4 inline-flex items-center gap-2 text-primary">
 			<span class="material-symbols-outlined text-sm">verified</span>
 			<span class="text-xs font-semibold tracking-widest uppercase">{$t('common.hero.badge')}</span>
@@ -158,12 +158,12 @@
 </section>
 
 <!-- Bento Grid Container -->
-<div id="statistics" class="mx-auto max-w-[--width-container-max] px-4 py-12 md:px-16">
+<div id="statistics" class="mx-auto px-4 py-12 md:px-16">
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-12">
 		<!-- 2. Core Village Metrics (KPI Grid) -->
 		<div class="space-y-6 md:col-span-12">
 			<div class="flex items-center gap-4">
-				<h2 class="text-xl font-bold">{$t('common.population.title')}</h2>
+				<h2 class="text-lg font-bold md:text-xl">{$t('common.population.title')}</h2>
 				<div class="h-px flex-grow bg-border"></div>
 			</div>
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -242,10 +242,35 @@
 			{@const avgPopulation = hamletData.reduce((s, d) => s + d.population, 0) / hamletData.length}
 			<div class="flex flex-col border border-border bg-card md:col-span-8">
 				<div class="flex items-center justify-between border-b border-border bg-muted/30 p-6">
-					<h2 class="text-xl font-bold">{$t('common.population.admin.title')}</h2>
+					<h2 class="text-lg font-bold md:text-xl">{$t('common.population.admin.title')}</h2>
 					<span class="material-symbols-outlined text-muted-foreground">analytics</span>
 				</div>
-				<div class="overflow-x-auto">
+				<!-- Mobile: stacked cards -->
+				<div class="divide-y divide-border md:hidden">
+					{#each hamletData as item (item.hamlet)}
+						{@const status = getHamletStatus(item.population, avgPopulation)}
+						{@const statusColor =
+							status === 'DENSE'
+								? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+								: status === 'BALANCED'
+									? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+									: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'}
+						<div class="flex items-center justify-between px-4 py-3">
+							<div class="flex items-center gap-3">
+								<span class="text-sm font-semibold">{item.hamlet}</span>
+							</div>
+							<div class="flex items-center gap-4 text-xs text-muted-foreground">
+								<span><span class="font-medium text-foreground">{item.population}</span> pop</span>
+								<span><span class="font-medium text-foreground">{item.households}</span> kk</span>
+								<span class="rounded-full px-2 py-0.5 text-[10px] font-bold {statusColor}"
+									>{status}</span
+								>
+							</div>
+						</div>
+					{/each}
+				</div>
+				<!-- Desktop: full table -->
+				<div class="hidden overflow-x-auto md:block">
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border bg-card">
@@ -318,7 +343,9 @@
 			<!-- 5. Geographic Verification -->
 			<div class="flex flex-col border border-border bg-card md:col-span-4">
 				<div class="border-b border-border bg-muted/30 p-6">
-					<h2 class="text-xl font-bold">{$t('common.location.geographic_verification')}</h2>
+					<h2 class="text-lg font-bold md:text-xl">
+						{$t('common.location.geographic_verification')}
+					</h2>
 				</div>
 				<a
 					href="https://www.google.com/maps?q={villageCoordinates.latitude},{villageCoordinates.longitude}"
@@ -351,7 +378,7 @@
 		<!-- 4. Latest Articles -->
 		<div class="md:col-span-12">
 			<div class="mb-6 flex items-center gap-4">
-				<h2 class="text-xl font-bold">{$t('common.articles.title')}</h2>
+				<h2 class="text-lg font-bold md:text-xl">{$t('common.articles.title')}</h2>
 				<div class="h-px flex-grow bg-border"></div>
 			</div>
 
@@ -414,7 +441,7 @@
 								{/if}
 							</div>
 							<div class="w-full md:w-2/3">
-								<h3 class="mb-2 text-xl font-bold">{article.title}</h3>
+								<h3 class="mb-2 text-lg font-bold md:text-xl">{article.title}</h3>
 								<div class="mb-3 flex items-center gap-2 text-xs text-muted-foreground">
 									<span class="material-symbols-outlined text-sm">calendar_today</span>
 									<span>
