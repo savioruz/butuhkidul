@@ -182,6 +182,10 @@
 	}
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 .text-gradient {
 	@apply font-semibold text-primary;
 }
