@@ -295,7 +295,7 @@
 								<div class="flex justify-center lg:justify-start">
 									{#if type === 'organization'}
 										<div
-											class="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 sm:text-5xl lg:h-48 lg:w-48 lg:text-6xl"
+											class="flex h-24 w-24 items-center justify-center bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 sm:text-5xl lg:h-48 lg:w-48 lg:text-6xl"
 										>
 											{organization.name.charAt(0).toUpperCase()}
 										</div>
@@ -303,11 +303,11 @@
 										<img
 											src={member.photo_url}
 											alt={member.name}
-											class="h-24 w-24 rounded-full object-cover shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 lg:h-48 lg:w-48"
+											class="h-24 w-24 object-cover shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 lg:h-48 lg:w-48"
 										/>
 									{:else if member}
 										<div
-											class="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 md:text-5xl"
+											class="flex h-24 w-24 items-center justify-center bg-primary text-4xl font-bold text-primary-foreground shadow-2xl ring-8 ring-background sm:h-40 sm:w-40 md:text-5xl"
 										>
 											{member.name.charAt(0).toUpperCase()}
 										</div>
@@ -342,7 +342,7 @@
 											</p>
 											<div class="flex flex-wrap justify-center gap-2 lg:justify-start">
 												<span
-													class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium {getPositionBadgeColor(
+													class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium {getPositionBadgeColor(
 														member.position
 													)}"
 												>
@@ -397,11 +397,11 @@
 																	<img
 																		src={leader.photo_url}
 																		alt={leader.name}
-																		class="h-16 w-16 rounded-full object-cover ring-4 ring-background/30 transition-all group-hover:ring-background/50"
+																		class="h-16 w-16 object-cover ring-4 ring-background/30 transition-all group-hover:ring-background/50"
 																	/>
 																{:else}
 																	<div
-																		class="flex h-16 w-16 items-center justify-center rounded-full bg-background/20 text-xl font-bold text-primary-foreground ring-4 ring-background/30 backdrop-blur-sm transition-all group-hover:ring-background/50"
+																		class="flex h-16 w-16 items-center justify-center bg-background/20 text-xl font-bold text-primary-foreground ring-4 ring-background/30 backdrop-blur-sm transition-all group-hover:ring-background/50"
 																	>
 																		{leader.name.charAt(0).toUpperCase()}
 																	</div>
@@ -412,7 +412,7 @@
 																	{leader.name}
 																</CardTitle>
 																<div
-																	class="inline-flex items-center gap-2 rounded-full bg-background/20 px-3 py-1 text-sm font-medium text-primary-foreground backdrop-blur-sm"
+																	class="inline-flex items-center gap-2 bg-background/20 px-3 py-1 text-sm font-medium text-primary-foreground backdrop-blur-sm"
 																>
 																	<Crown class="h-3 w-3" />
 																	{formatPosition(leader.position)}
@@ -454,11 +454,11 @@
 																	<img
 																		src={keyMember.photo_url}
 																		alt={keyMember.name}
-																		class="h-16 w-16 rounded-full object-cover ring-4 ring-white/30 transition-all group-hover:ring-white/50"
+																		class="h-16 w-16 object-cover ring-4 ring-white/30 transition-all group-hover:ring-white/50"
 																	/>
 																{:else}
 																	<div
-																		class="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 text-xl font-bold text-white ring-4 ring-white/30 backdrop-blur-sm transition-all group-hover:ring-white/50"
+																		class="flex h-16 w-16 items-center justify-center bg-white/20 text-xl font-bold text-white ring-4 ring-white/30 backdrop-blur-sm transition-all group-hover:ring-white/50"
 																	>
 																		{keyMember.name.charAt(0).toUpperCase()}
 																	</div>
@@ -469,7 +469,7 @@
 																	{keyMember.name}
 																</CardTitle>
 																<div
-																	class="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm"
+																	class="inline-flex items-center gap-2 bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm"
 																>
 																	<Shield class="h-3 w-3" />
 																	{formatPosition(keyMember.position)}
@@ -512,11 +512,11 @@
 																	<img
 																		src={deptMember.photo_url}
 																		alt={deptMember.name}
-																		class="h-16 w-16 rounded-full object-cover ring-4 ring-white/30 transition-all group-hover:ring-white/50"
+																		class="h-16 w-16 object-cover ring-4 ring-white/30 transition-all group-hover:ring-white/50"
 																	/>
 																{:else}
 																	<div
-																		class="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 text-xl font-bold text-white ring-4 ring-white/30 backdrop-blur-sm transition-all group-hover:ring-white/50"
+																		class="flex h-16 w-16 items-center justify-center bg-white/20 text-xl font-bold text-white ring-4 ring-white/30 backdrop-blur-sm transition-all group-hover:ring-white/50"
 																	>
 																		{deptMember.name.charAt(0).toUpperCase()}
 																	</div>
@@ -527,7 +527,7 @@
 																	{deptMember.name}
 																</CardTitle>
 																<div
-																	class="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm"
+																	class="inline-flex items-center gap-2 bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm"
 																>
 																	<Briefcase class="h-3 w-3" />
 																	{formatPosition(deptMember.position)}
@@ -552,7 +552,7 @@
 											<UserCheck class="h-6 w-6 text-green-500" />
 											{$t('common.organizations.general_members')}
 										</h3>
-										<div class="mx-auto h-1 w-24 rounded-full bg-primary"></div>
+										<div class="mx-auto h-1 w-24 bg-primary"></div>
 									</div>
 
 									<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -568,11 +568,11 @@
 																	<img
 																		src={otherMember.photo_url}
 																		alt={otherMember.name}
-																		class="h-14 w-14 rounded-full object-cover ring-4 ring-border transition-all group-hover:ring-primary/20"
+																		class="h-14 w-14 object-cover ring-4 ring-border transition-all group-hover:ring-primary/20"
 																	/>
 																{:else}
 																	<div
-																		class="flex h-14 w-14 items-center justify-center rounded-full bg-muted text-lg font-bold text-muted-foreground ring-4 ring-border transition-all group-hover:ring-primary/20"
+																		class="flex h-14 w-14 items-center justify-center bg-muted text-lg font-bold text-muted-foreground ring-4 ring-border transition-all group-hover:ring-primary/20"
 																	>
 																		{otherMember.name.charAt(0).toUpperCase()}
 																	</div>
@@ -585,7 +585,7 @@
 																	{otherMember.name}
 																</CardTitle>
 																<div
-																	class="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground"
+																	class="inline-flex items-center gap-2 bg-muted px-3 py-1 text-sm font-medium text-muted-foreground"
 																>
 																	<UserCheck class="h-3 w-3" />
 																	{formatPosition(otherMember.position)}
@@ -675,17 +675,17 @@
 											{#each organizationMembers.slice(0, 10) as otherMember (otherMember.id)}
 												<a
 													href="/organizations/{createSlug(otherMember.name)}"
-													class="group flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
+													class="group flex items-center gap-3 border border-border p-3 transition-colors hover:bg-muted/50"
 												>
 													{#if otherMember.photo_url}
 														<img
 															src={otherMember.photo_url}
 															alt={otherMember.name}
-															class="h-10 w-10 rounded-full object-cover ring-2 ring-border group-hover:ring-primary/20"
+															class="h-10 w-10 object-cover ring-2 ring-border group-hover:ring-primary/20"
 														/>
 													{:else}
 														<div
-															class="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground ring-2 ring-border group-hover:ring-primary/20"
+															class="flex h-10 w-10 items-center justify-center bg-muted text-sm font-bold text-muted-foreground ring-2 ring-border group-hover:ring-primary/20"
 														>
 															{otherMember.name.charAt(0).toUpperCase()}
 														</div>

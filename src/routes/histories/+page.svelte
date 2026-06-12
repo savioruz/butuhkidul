@@ -53,7 +53,7 @@
 	<div class="mb-8">
 		<div class="text-center">
 			<div class="mb-4 flex justify-center">
-				<div class="rounded-full bg-amber-100 p-4 dark:bg-amber-900/30">
+				<div class="bg-amber-100 p-4 dark:bg-amber-900/30">
 					<Heart class="h-8 w-8 text-amber-600 dark:text-amber-400" />
 				</div>
 			</div>
@@ -87,7 +87,7 @@
 					</CardHeader>
 					<CardContent class="space-y-6">
 						<div class="flex justify-center">
-							<div class="h-64 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+							<div class="h-64 w-full animate-pulse bg-gray-200 dark:bg-gray-700"></div>
 						</div>
 						<div class="space-y-3">
 							{#each Array(4) as line, lineIndex (lineIndex)}
@@ -150,7 +150,7 @@
 								<img
 									src={history.image_url}
 									alt="Village History"
-									class="max-h-96 w-full rounded-lg object-cover shadow-md"
+									class="max-h-96 w-full object-cover shadow-md"
 								/>
 							</div>
 						{/if}

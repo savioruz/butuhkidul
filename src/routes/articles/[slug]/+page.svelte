@@ -97,7 +97,7 @@
 			<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 				<div class="py-20 text-center">
 					<div
-						class="mb-6 inline-block h-12 w-12 animate-spin rounded-full border-4 border-border border-t-primary"
+						class="mb-6 inline-block h-12 w-12 animate-spin border-4 border-border border-t-primary"
 					></div>
 					<h3 class="mb-2 text-xl font-semibold text-foreground">
 						{$t('common.articles.loading_article')}
@@ -112,7 +112,7 @@
 			<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 				<div class="py-20 text-center">
 					<div
-						class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-destructive/50 bg-card p-6"
+						class="mx-auto mb-6 flex h-20 w-20 items-center justify-center border-2 border-destructive/50 bg-card p-6"
 					>
 						<BookOpen class="h-10 w-10 text-destructive" />
 					</div>
@@ -152,7 +152,7 @@
 							<div class="absolute inset-0 bg-black/60"></div>
 							<div class="absolute right-6 bottom-6 left-6">
 								<div
-									class="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-3 py-1 text-sm font-medium text-card-foreground backdrop-blur-sm"
+									class="mb-4 inline-flex items-center gap-2 border border-border bg-card/90 px-3 py-1 text-sm font-medium text-card-foreground backdrop-blur-sm"
 								>
 									<BookOpen class="h-4 w-4" />
 									{$t('common.articles.article_label')}
@@ -167,7 +167,7 @@
 					{:else}
 						<CardHeader class="border-b border-border">
 							<div
-								class="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground"
+								class="mb-4 inline-flex w-fit items-center gap-2 bg-muted px-3 py-1 text-sm font-medium text-muted-foreground"
 							>
 								<BookOpen class="h-4 w-4" />
 								{$t('common.articles.article_label')}
@@ -203,14 +203,12 @@
 							prose-strong:text-foreground prose-ul:text-foreground prose-ul:leading-8
 							prose-ol:text-foreground prose-ol:leading-8
 							prose-li:text-foreground prose-li:leading-8 prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground
-							prose-img:rounded-xl
-							prose-img:shadow-sm prose-img:border
+							prose-img:prose-img:shadow-sm prose-img:border
 							prose-img:border-border prose-code:text-foreground prose-code:bg-muted prose-code:px-1
 							prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-muted prose-pre:text-foreground prose-pre:border
 							prose-pre:border-border prose-hr:border-border prose-table:text-foreground prose-thead:border-border
 							prose-tr:border-border
-							prose-td:border-border prose-th:border-border max-w-none font-serif leading-relaxed
-						"
+							prose-td:border-border prose-th:border-border max-w-none font-serif leading-relaxed"
 						>
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html parseMarkdown(article.content || '')}

@@ -108,7 +108,7 @@
 						onkeydown={(e) => e.key === 'Enter' && handleSearch()}
 						type="text"
 						placeholder={$t('common.articles.search_placeholder')}
-						class="w-full rounded-xl border border-border bg-background py-3 pr-4 pl-10 text-foreground shadow-sm focus:border-transparent focus:ring-2 focus:ring-primary"
+						class="w-full border border-border bg-background py-3 pr-4 pl-10 text-foreground shadow-sm focus:border-transparent focus:ring-2 focus:ring-primary"
 					/>
 					<Button
 						onclick={handleSearch}
@@ -128,7 +128,7 @@
 				<!-- Loading State -->
 				<div class="py-20 text-center">
 					<div
-						class="mb-6 inline-block h-12 w-12 animate-spin rounded-full border-4 border-border border-t-primary"
+						class="mb-6 inline-block h-12 w-12 animate-spin border-4 border-border border-t-primary"
 					></div>
 					<h3 class="mb-2 text-xl font-semibold text-foreground">
 						{$t('common.articles.loading')}
@@ -139,7 +139,7 @@
 				<!-- Error State -->
 				<div class="py-20 text-center">
 					<div
-						class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-destructive/50 bg-card p-6"
+						class="mx-auto mb-6 flex h-20 w-20 items-center justify-center border-2 border-destructive/50 bg-card p-6"
 					>
 						<BookOpen class="h-10 w-10 text-destructive" />
 					</div>
@@ -212,7 +212,7 @@
 											/>
 											<div class="absolute top-4 right-4">
 												<div
-													class="rounded-full border border-border bg-card/90 px-3 py-1 text-sm font-medium text-card-foreground backdrop-blur-sm"
+													class="border border-border bg-card/90 px-3 py-1 text-sm font-medium text-card-foreground backdrop-blur-sm"
 												>
 													{$t('common.articles.article_label')}
 												</div>
@@ -247,7 +247,7 @@
 
 											<a
 												href={`/articles/${article.slug}`}
-												class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
+												class="inline-flex items-center gap-2 bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
 												data-sveltekit-preload-data
 											>
 												{$t('common.articles.read_more')}
@@ -265,11 +265,9 @@
 								class="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm"
 							>
 								<div
-									class="flex items-center gap-3 rounded-lg border border-border bg-card px-6 py-3 shadow-lg"
+									class="flex items-center gap-3 border border-border bg-card px-6 py-3 shadow-lg"
 								>
-									<div
-										class="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-primary"
-									></div>
+									<div class="h-6 w-6 animate-spin border-2 border-border border-t-primary"></div>
 									<span class="font-medium text-foreground"
 										>{$t('common.articles.loading_page')}</span
 									>

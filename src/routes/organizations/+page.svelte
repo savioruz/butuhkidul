@@ -73,7 +73,7 @@
 				<!-- Loading State -->
 				<div class="py-16 text-center sm:py-20">
 					<div
-						class="mb-4 inline-block h-10 w-10 animate-spin rounded-full border-4 border-border border-t-primary sm:mb-6 sm:h-12 sm:w-12"
+						class="mb-4 inline-block h-10 w-10 animate-spin border-4 border-border border-t-primary sm:mb-6 sm:h-12 sm:w-12"
 					></div>
 					<h3 class="mb-2 text-lg font-semibold text-foreground sm:text-xl">
 						{$t('common.organizations.loading')}
@@ -86,7 +86,7 @@
 				<!-- Error State -->
 				<div class="py-16 text-center sm:py-20">
 					<div
-						class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-destructive/50 bg-card p-4 sm:mb-6 sm:h-20 sm:w-20 sm:p-6"
+						class="mx-auto mb-4 flex h-16 w-16 items-center justify-center border-2 border-destructive/50 bg-card p-4 sm:mb-6 sm:h-20 sm:w-20 sm:p-6"
 					>
 						<Building2 class="h-8 w-8 text-destructive sm:h-10 sm:w-10" />
 					</div>
@@ -136,7 +136,7 @@
 									<CardHeader class="px-4 pt-6 pb-4 sm:px-6 sm:pt-8 sm:pb-6">
 										<div class="mb-3 flex items-start justify-between sm:mb-4">
 											<div
-												class="rounded-lg bg-primary p-3 text-primary-foreground shadow-lg transition-shadow group-hover:shadow-xl sm:rounded-xl sm:p-4"
+												class="bg-primary p-3 text-primary-foreground shadow-lg transition-shadow group-hover:shadow-xl sm:sm:p-4"
 											>
 												<Building2 class="h-6 w-6 sm:h-8 sm:w-8" />
 											</div>

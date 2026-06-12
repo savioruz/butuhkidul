@@ -2,17 +2,10 @@
 	const currentYear = new Date().getFullYear();
 </script>
 
-<footer class="flex flex-col items-center justify-center text-center">
-	<p>&copy; {currentYear} Butuh Kidul. All rights reserved.</p>
-	<p>
-		Made with ❤️
-		<a
-			href="https://github.com/savioruz/"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-xs"
-		>
-			@savioruz
-		</a>
-	</p>
+<footer class="flex items-center justify-center py-8 text-center text-sm text-muted-foreground">
+	<span>&copy; {currentYear} Butuh Kidul. All rights reserved.</span>
+	<span class="mx-3 text-border">|</span>
+	<a href="/privacy" class="hover:text-foreground">Privacy Policy</a>
+	<span class="mx-3 text-border">|</span>
+	<a href="/terms" class="hover:text-foreground">Terms of Service</a>
 </footer>
