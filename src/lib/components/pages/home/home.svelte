@@ -1,30 +1,14 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
-	import {
-		Card,
-		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle
-	} from '$lib/components/ui/card';
-	import { LazyMap } from '$lib/components/ui/lazy-map';
-	import LazyPopulationStatistics from '$lib/components/pages/population/lazy-population-statistics.svelte';
 	import { t } from '$lib/i18n';
-	import {
-		ChevronRight,
-		MapPin,
-		Users,
-		Leaf,
-		Calendar,
-		Building2,
-		Map,
-		Navigation
-	} from 'lucide-svelte';
+	import { ChevronRight, Calendar } from 'lucide-svelte';
 	import type { Village, VillagesResponse } from '@/types/village';
 	import type { Article, ArticlesResponse } from '@/types/article';
 	import { getExcerpt } from '$lib/utils/markdown';
+	import { populationApi } from '$lib/api/population';
+	import type { PopulationStats } from '@/types/population';
 
-	// Accept server-side loaded data using $props()
 	let {
 		villageData: initialVillageData = null,
 		articlesData: initialArticlesData = null,
@@ -37,30 +21,30 @@
 		articlesError: string | null;
 	} = $props();
 
-	// Set up reactive state with initial server-side data
 	let villageData = $state(initialVillageData);
 	let articlesData = $state(initialArticlesData);
 	let error = $state(initialVillageError);
 	let articlesError = $state(initialArticlesError);
 
-	// Set loading states to false since data is already loaded server-side
 	let isLoading = $state(false);
 	let isLoadingArticles = $state(false);
 
 	let primaryVillage: Village | null = $state(null);
 	let latestArticles: Article[] = $state([]);
 
-	const googleMapsEmbedUrl =
-		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.3039250239203!2d110.27576072573447!3d-7.863228978172313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af921ec0e2b1f%3A0x8ea440c9c9a1a377!2sButuh%20Kidul%2C%20Triwidadi%2C%20Pajangan%2C%20Bantul%20Regency%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1757404961400!5m2!1sen!2sid';
+	let populationStats: PopulationStats | null = $state(null);
+	let populationLoading = $state(true);
+	let populationError = $state<string | null>(null);
 
-	function getGoogleMapsLink(): string {
-		return `https://www.google.com/maps/place/Butuh+Kidul,+Triwidadi,+Pajangan,+Bantul+Regency,+Special+Region+of+Yogyakarta/@-7.863229,110.275761,17z`;
-	}
+	let hamletData: Array<{ hamlet: string; population: number; households: number }> = $state([]);
 
 	const villageCoordinates = {
 		latitude: -7.863229,
 		longitude: 110.275761
 	};
+
+	const googleMapsEmbedUrl =
+		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.3039250239203!2d110.27576072573447!3d-7.863228978172313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af921ec0e2b1f%3A0x8ea440c9c9a1a377!2sButuh%20Kidul%2C%20Triwidadi%2C%20Pajangan%2C%20Bantul%20Regency%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1757404961400!5m2!1sen!2sid';
 
 	function formatDate(dateString: string): string {
 		try {
@@ -75,6 +59,12 @@
 		}
 	}
 
+	function getHamletStatus(population: number, avg: number): string {
+		if (population > avg * 1.1) return 'DENSE';
+		if (population < avg * 0.9) return 'STABLE';
+		return 'BALANCED';
+	}
+
 	$effect(() => {
 		if (villageData?.data?.villages && villageData.data.villages.length > 0) {
 			primaryVillage = villageData.data.villages[0];
@@ -85,550 +75,376 @@
 
 	$effect(() => {
 		if (articlesData?.data?.articles) {
-			latestArticles = articlesData.data.articles.slice(0, 3);
+			latestArticles = articlesData.data.articles.slice(0, 2);
 		} else {
 			latestArticles = [];
 		}
 	});
 
-	// Update reactive data when props change (for potential client-side navigation)
 	$effect(() => {
 		villageData = initialVillageData;
 		articlesData = initialArticlesData;
 		error = initialVillageError;
 		articlesError = initialArticlesError;
 	});
+
+	onMount(async () => {
+		try {
+			populationLoading = true;
+			const response = await populationApi.getPopulations();
+			if (response?.data?.population && Array.isArray(response.data.population)) {
+				const stats = populationApi.processPopulationStats(response.data.population);
+				populationStats = stats;
+				hamletData = stats.hamletData.map((h, i) => ({
+					hamlet: `RT ${String(i + 1).padStart(2, '0')}`,
+					population: h.population,
+					households: h.households
+				}));
+			} else {
+				populationError = $t('common.population.no_data_available');
+			}
+		} catch (err) {
+			populationError = err instanceof Error ? err.message : $t('common.population.load_failed');
+		} finally {
+			populationLoading = false;
+		}
+	});
 </script>
 
 <!-- 1. Hero Section -->
-<section class="relative w-full">
-	<!-- Hero Background -->
-	<div class="relative overflow-hidden rounded-3xl bg-green-50 dark:bg-green-950/30">
-		<div
-			class="bg-grid-slate-100 dark:bg-grid-slate-700/25 absolute inset-0 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"
-		></div>
-
-		<div class="relative px-6 py-20 sm:px-12 sm:py-24 lg:px-16 lg:py-32">
-			<div class="mx-auto max-w-5xl text-center">
-				<div class="mb-8 flex justify-center">
-					<div class="relative">
-						<div class="absolute inset-0 animate-pulse rounded-full bg-green-500/20 blur-2xl"></div>
-						<div class="relative rounded-full bg-green-100 p-6 shadow-2xl dark:bg-green-900/50">
-							<MapPin class="h-12 w-12 text-green-600 dark:text-green-400" />
-						</div>
-					</div>
-				</div>
-
-				<!-- Main Heading -->
-				<h1
-					class="mb-8 text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl"
-				>
-					{$t('common.hero.welcome')}
-					<br class="hidden sm:block" />
-					<span class="text-primary">
-						{isLoading
-							? $t('common.loading')
-							: (primaryVillage?.name ?? $t('common.hero.village_name'))}
-					</span>
-				</h1>
-
-				<!-- Subtitle -->
-				<p
-					class="mx-auto mb-12 max-w-4xl text-xl leading-relaxed text-muted-foreground sm:text-2xl lg:text-3xl"
-				>
-					{isLoading
-						? $t('common.loading') + '...'
-						: (primaryVillage?.address ?? $t('common.hero.subtitle'))}
-				</p>
-
-				<!-- Error Message -->
-				{#if error}
-					<div
-						class="mb-8 rounded-2xl bg-red-50 p-6 text-red-800 dark:bg-red-900/50 dark:text-red-200"
-					>
-						{error}
-					</div>
-				{/if}
-
-				<!-- CTA Buttons -->
-				<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
-					<Button
-						size="lg"
-						href="#statistics"
-						class="group px-8 py-4 text-lg shadow-xl hover:shadow-2xl"
-						disabled={isLoading}
-						aria-label="Explore population statistics and demographics of Butuh Kidul village"
-					>
-						{$t('common.hero.explore_button')}
-						<ChevronRight class="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-					</Button>
-					<Button
-						variant="outline"
-						size="lg"
-						href="/histories"
-						class="px-8 py-4 text-lg shadow-lg hover:shadow-xl"
-						disabled={isLoading}
-						aria-label="Learn more about Butuh Kidul village history and heritage"
-					>
-						{$t('common.hero.learn_more')}
-					</Button>
-				</div>
-			</div>
+<section
+	class="grid-bg relative flex min-h-[calc(100dvh-64px)] flex-col items-center justify-center border-b border-border"
+>
+	<div class="mx-auto max-w-[--width-container-max] px-4 text-center md:px-6">
+		<div class="mb-4 inline-flex items-center gap-2 text-primary">
+			<span class="material-symbols-outlined text-sm">verified</span>
+			<span class="text-xs font-semibold tracking-widest uppercase">{$t('common.hero.badge')}</span>
 		</div>
-	</div>
-</section>
-
-<!-- 2. Statistics Section -->
-<section id="statistics" class="mt-16 w-full">
-	<LazyPopulationStatistics />
-</section>
-<!-- 4. Location Section -->
-{#if primaryVillage}
-	<section id="location" class="mt-16 w-full">
-		<Card class="overflow-hidden border-0 bg-green-50/50 shadow-2xl dark:bg-green-950/20">
-			<CardHeader class="pb-8">
-				<div class="flex flex-col items-center gap-6 text-center">
-					<div class="space-y-4">
-						<div class="flex justify-center">
-							<div class="relative">
-								<div class="absolute inset-0 rounded-xl bg-green-500/20 blur-xl"></div>
-								<div class="relative rounded-xl bg-green-100 p-4 dark:bg-green-900/50">
-									<Map class="h-8 w-8 text-green-600 lg:h-10 lg:w-10 dark:text-green-400" />
-								</div>
-							</div>
-						</div>
-						<CardTitle class="text-3xl font-bold lg:text-4xl">
-							<span class="text-primary">
-								{$t('common.location.title')}
-							</span>
-						</CardTitle>
-						<CardDescription class="text-lg text-muted-foreground lg:text-xl">
-							{$t('common.location.subtitle')}
-						</CardDescription>
-					</div>
-					<div class="flex gap-3">
-						<Button
-							variant="outline"
-							size="lg"
-							onclick={() => window.open(getGoogleMapsLink(), '_blank')}
-							class="group border-green-200 bg-white/80 backdrop-blur-sm transition-all hover:border-green-300 hover:bg-green-50 hover:shadow-lg dark:border-green-800 dark:bg-green-950/50 dark:hover:bg-green-900/50"
-							aria-label="Open Butuh Kidul village location in Google Maps"
-						>
-							<Navigation class="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-							{$t('common.location.open_maps')}
-						</Button>
-					</div>
-				</div>
-			</CardHeader>
-			<CardContent class="p-0">
-				<div class="grid gap-0 xl:grid-cols-3">
-					<!-- Map Container -->
-					<div class="xl:col-span-2">
-						<LazyMap {googleMapsEmbedUrl} title="Butuh Kidul Village Location Map" />
-					</div>
-
-					<!-- Enhanced Location Info -->
-					<div class="bg-white/50 p-8 xl:col-span-1 dark:bg-gray-900/50">
-						<div class="space-y-8">
-							<!-- Village Information -->
-							<div class="space-y-6">
-								<div class="flex items-center gap-3">
-									<div class="h-8 w-1 rounded-full bg-green-500"></div>
-									<h3 class="text-xl font-bold text-foreground">
-										{$t('common.location.village_info')}
-									</h3>
-								</div>
-
-								<div class="space-y-5">
-									<!-- Village Name & Address -->
-									<div
-										class="group rounded-xl bg-white/80 p-5 shadow-sm transition-all hover:shadow-md dark:bg-gray-900/80"
-									>
-										<div class="flex items-start gap-4">
-											<div class="rounded-lg bg-green-100 p-2 dark:bg-green-900/50">
-												<MapPin class="h-5 w-5 text-green-600 dark:text-green-400" />
-											</div>
-											<div class="flex-1 space-y-1">
-												<p class="text-lg font-semibold text-foreground">{primaryVillage.name}</p>
-												<p class="text-sm leading-relaxed text-muted-foreground">
-													{primaryVillage.address}
-												</p>
-											</div>
-										</div>
-									</div>
-
-									<!-- Coordinates -->
-									<div
-										class="group rounded-xl bg-white/80 p-5 shadow-sm transition-all hover:shadow-md dark:bg-gray-900/80"
-									>
-										<div class="flex items-start gap-4">
-											<div class="rounded-lg bg-blue-100 p-2 dark:bg-blue-900/50">
-												<div class="h-5 w-5 rounded-full bg-blue-500"></div>
-											</div>
-											<div class="flex-1 space-y-1">
-												<p class="text-sm font-semibold text-foreground">
-													{$t('common.location.coordinates')}
-												</p>
-												<p class="font-mono text-sm text-muted-foreground">
-													{villageCoordinates.latitude.toFixed(6)}, {villageCoordinates.longitude.toFixed(
-														6
-													)}
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Quick Actions -->
-							<div class="space-y-6">
-								<div class="flex items-center gap-3">
-									<div class="h-8 w-1 rounded-full bg-blue-500"></div>
-									<h4 class="text-lg font-bold text-foreground">
-										{$t('common.location.quick_actions')}
-									</h4>
-								</div>
-
-								<div class="space-y-3">
-									<Button
-										variant="outline"
-										size="lg"
-										onclick={() => window.open(getGoogleMapsLink(), '_blank')}
-										class="group w-full justify-start gap-3 border-blue-200 bg-blue-50/50 py-6 transition-all hover:border-blue-300 hover:bg-blue-100 hover:shadow-lg dark:border-blue-800 dark:bg-blue-950/30 dark:hover:bg-blue-900/50"
-										aria-label="Get directions to Butuh Kidul village via Google Maps"
-									>
-										<div
-											class="rounded-lg bg-blue-100 p-2 transition-transform group-hover:scale-110 dark:bg-blue-900/50"
-										>
-											<Navigation class="h-5 w-5 text-blue-600 dark:text-blue-400" />
-										</div>
-										<div class="text-left">
-											<p class="font-semibold">{$t('common.location.get_directions')}</p>
-											<p class="text-xs text-muted-foreground">Open in Google Maps</p>
-										</div>
-									</Button>
-
-									<Button
-										variant="outline"
-										size="lg"
-										onclick={() => {
-											navigator.clipboard?.writeText(
-												`${villageCoordinates.latitude}, ${villageCoordinates.longitude}`
-											);
-										}}
-										class="group w-full justify-start gap-3 border-purple-200 bg-purple-50/50 py-6 transition-all hover:border-purple-300 hover:bg-purple-100 hover:shadow-lg dark:border-purple-800 dark:bg-purple-950/30 dark:hover:bg-purple-900/50"
-										aria-label="Copy Butuh Kidul village GPS coordinates to clipboard"
-									>
-										<div
-											class="rounded-lg bg-purple-100 p-2 transition-transform group-hover:scale-110 dark:bg-purple-900/50"
-										>
-											<MapPin class="h-5 w-5 text-purple-600 dark:text-purple-400" />
-										</div>
-										<div class="text-left">
-											<p class="font-semibold">{$t('common.location.copy_coordinates')}</p>
-											<p class="text-xs text-muted-foreground">Copy to clipboard</p>
-										</div>
-									</Button>
-								</div>
-							</div>
-
-							<!-- Additional Info -->
-							<div class="rounded-xl bg-green-50 p-5 dark:bg-green-950/30">
-								<div class="flex items-start gap-3">
-									<div class="rounded-full bg-green-100 p-1 dark:bg-green-900/50">
-										<div class="h-3 w-3 rounded-full bg-green-500"></div>
-									</div>
-									<div>
-										<p class="text-sm font-medium text-green-800 dark:text-green-200">
-											Real-time Location
-										</p>
-										<p class="text-xs text-green-600 dark:text-green-400">
-											GPS coordinates verified
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</CardContent>
-		</Card>
-	</section>
-{/if}
-
-<!-- 3. Explore Section -->
-<section id="explore" class="mt-16 w-full">
-	<!-- Section Header -->
-	<div class="mb-12 text-center">
-		<div
-			class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50"
+		<h1
+			class="mx-auto mb-6 max-w-4xl text-4xl font-bold tracking-tight text-foreground md:text-6xl md:leading-[1.1]"
 		>
-			<Building2 class="h-8 w-8 text-blue-600 dark:text-blue-400" />
-		</div>
-		<h2 class="mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-			{$t('common.features.title')}
-		</h2>
-		<p class="mx-auto max-w-3xl text-xl text-muted-foreground">
-			{$t('common.features.subtitle')}
+			Butuh Kidul Digital Hub
+		</h1>
+		<p class="mx-auto max-w-2xl text-lg text-muted-foreground">
+			{isLoading
+				? `${$t('common.loading')}...`
+				: (primaryVillage?.address ?? $t('common.hero.subtitle'))}
 		</p>
-	</div>
-
-	<!-- Features Grid -->
-	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-		<!-- Community Feature -->
-		<Card
-			class="group relative overflow-hidden border-0 bg-blue-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:bg-blue-950/30"
-		>
-			<div
-				class="absolute inset-0 bg-blue-500/5 opacity-0 transition-opacity group-hover:opacity-100"
-			></div>
-			<CardHeader class="relative pt-8 pb-6">
-				<div class="mb-4 flex justify-center">
-					<div class="rounded-2xl bg-blue-100 p-4 shadow-lg dark:bg-blue-900/50">
-						<Users class="h-8 w-8 text-blue-600 dark:text-blue-400" />
-					</div>
-				</div>
-				<CardTitle class="text-center text-2xl font-bold">
-					{$t('common.features.community.title')}
-				</CardTitle>
-			</CardHeader>
-			<CardContent class="relative text-center">
-				<CardDescription class="text-lg leading-relaxed">
-					{$t('common.features.community.description')}
-				</CardDescription>
-			</CardContent>
-		</Card>
-
-		<!-- Environment Feature -->
-		<Card
-			class="group relative overflow-hidden border-0 bg-green-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:bg-green-950/30"
-		>
-			<div
-				class="absolute inset-0 bg-green-500/5 opacity-0 transition-opacity group-hover:opacity-100"
-			></div>
-			<CardHeader class="relative pt-8 pb-6">
-				<div class="mb-4 flex justify-center">
-					<div class="rounded-2xl bg-green-100 p-4 shadow-lg dark:bg-green-900/50">
-						<Leaf class="h-8 w-8 text-green-600 dark:text-green-400" />
-					</div>
-				</div>
-				<CardTitle class="text-center text-2xl font-bold">
-					{$t('common.features.environment.title')}
-				</CardTitle>
-			</CardHeader>
-			<CardContent class="relative text-center">
-				<CardDescription class="text-lg leading-relaxed">
-					{$t('common.features.environment.description')}
-				</CardDescription>
-			</CardContent>
-		</Card>
-
-		<!-- Services Feature -->
-		<Card
-			class="group relative overflow-hidden border-0 bg-purple-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:col-span-2 lg:col-span-1 dark:bg-purple-950/30"
-		>
-			<div
-				class="absolute inset-0 bg-purple-500/5 opacity-0 transition-opacity group-hover:opacity-100"
-			></div>
-			<CardHeader class="relative pt-8 pb-6">
-				<div class="mb-4 flex justify-center">
-					<div class="rounded-2xl bg-purple-100 p-4 shadow-lg dark:bg-purple-900/50">
-						<Building2 class="h-8 w-8 text-purple-600 dark:text-purple-400" />
-					</div>
-				</div>
-				<CardTitle class="text-center text-2xl font-bold">
-					{$t('common.features.services.title')}
-				</CardTitle>
-			</CardHeader>
-			<CardContent class="relative text-center">
-				<CardDescription class="text-lg leading-relaxed">
-					{$t('common.features.services.description')}
-				</CardDescription>
-			</CardContent>
-		</Card>
-	</div>
-
-	<!-- Latest Articles Preview -->
-	<div class="mt-16">
-		<!-- Articles Header -->
-		<div class="mb-12 text-center">
-			<div class="mb-4 flex justify-center">
-				<div class="rounded-full bg-orange-100 p-3 dark:bg-orange-900/50">
-					<Calendar class="h-6 w-6 text-orange-600 dark:text-orange-400" />
-				</div>
-			</div>
-			<h3 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-				{$t('common.articles.title')}
-			</h3>
-			<p class="mx-auto max-w-2xl text-lg text-muted-foreground">
-				{$t('common.articles.subtitle')}
-			</p>
-		</div>
-
-		<!-- Articles Loading State -->
-		{#if isLoadingArticles}
-			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-				{#each Array(3) as i, index (index)}
-					{void i}
-					<Card class="animate-pulse overflow-hidden border-0 shadow-xl">
-						<div class="aspect-video bg-gray-200 dark:bg-gray-700"></div>
-						<CardHeader class="pb-4">
-							<div class="mb-2 h-6 rounded bg-gray-200 dark:bg-gray-700"></div>
-							<div class="h-4 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
-						</CardHeader>
-						<CardContent>
-							<div class="space-y-2">
-								<div class="h-4 rounded bg-gray-200 dark:bg-gray-700"></div>
-								<div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
-							</div>
-						</CardContent>
-					</Card>
-				{/each}
-			</div>
-		{:else if articlesError}
-			<!-- Articles Error State -->
-			<div class="py-12 text-center">
-				<div
-					class="mx-auto max-w-md rounded-2xl bg-red-50 p-8 text-red-800 dark:bg-red-900/50 dark:text-red-200"
-				>
-					<Calendar class="mx-auto mb-4 h-12 w-12 text-red-600 dark:text-red-400" />
-					<h4 class="mb-2 text-lg font-semibold">{$t('common.articles.error_loading')}</h4>
-					<p class="mb-4 text-sm">{articlesError}</p>
-					<Button
-						variant="outline"
-						size="sm"
-						onclick={() => window.location.reload()}
-						aria-label="Try again to reload articles from Butuh Kidul village"
-					>
-						{$t('common.articles.try_again')}
-					</Button>
-				</div>
-			</div>
-		{:else if latestArticles.length === 0}
-			<!-- No Articles State -->
-			<div class="py-12 text-center">
-				<div
-					class="mx-auto max-w-md rounded-2xl bg-gray-50 p-8 text-gray-600 dark:bg-gray-900/50 dark:text-gray-400"
-				>
-					<Calendar class="mx-auto mb-4 h-12 w-12 text-gray-400 dark:text-gray-500" />
-					<h4 class="mb-2 text-lg font-semibold">{$t('common.articles.no_articles_found')}</h4>
-					<p class="mb-4 text-sm">{$t('common.articles.no_articles_published')}</p>
-					<Button
-						variant="outline"
-						href="/articles"
-						size="sm"
-						aria-label="View all articles page for Butuh Kidul village"
-					>
-						{$t('common.articles.view_all_articles')}
-					</Button>
-				</div>
-			</div>
-		{:else}
-			<!-- Articles Grid with Real Data -->
-			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-				{#each latestArticles as article, index (article.id)}
-					{@const gradients = [
-						'bg-purple-100 dark:bg-purple-900/30',
-						'bg-green-100 dark:bg-green-900/30',
-						'bg-orange-100 dark:bg-orange-900/30'
-					]}
-					{@const iconColors = [
-						'text-purple-500 dark:text-purple-400',
-						'text-green-500 dark:text-green-400',
-						'text-orange-500 dark:text-orange-400'
-					]}
-					{@const icons = [Building2, Leaf, Users]}
-					{@const IconComponent = icons[index % icons.length]}
-
-					<Card
-						class="group overflow-hidden border-0 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl {index ===
-							2 && latestArticles.length === 3
-							? 'sm:col-span-2 lg:col-span-1'
-							: ''}"
-					>
-						<!-- Article Cover -->
-						<div
-							class="relative aspect-video overflow-hidden {gradients[index % gradients.length]}"
-						>
-							{#if article.cover_url}
-								<img
-									src={article.cover_url}
-									alt={article.title}
-									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-									loading="lazy"
-								/>
-								<div
-									class="absolute inset-0 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100"
-								></div>
-							{:else}
-								<div
-									class="absolute inset-0 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100"
-								></div>
-								<div class="flex h-full items-center justify-center">
-									<IconComponent
-										class="h-16 w-16 {iconColors[
-											index % iconColors.length
-										]} transition-transform group-hover:scale-110"
-									/>
-								</div>
-							{/if}
-						</div>
-
-						<!-- Article Content -->
-						<CardHeader class="pb-4">
-							<CardTitle class="line-clamp-2 text-xl transition-colors group-hover:text-primary">
-								<a
-									href="/articles/{article.slug}"
-									class="hover:underline"
-									aria-label="Read article: {article.title}"
-								>
-									{article.title}
-								</a>
-							</CardTitle>
-							<div class="flex items-center gap-2 text-sm text-muted-foreground">
-								<Calendar class="h-4 w-4" />
-								<span>
-									{article.published_at
-										? formatDate(article.published_at)
-										: formatDate(article.created_at)}
-								</span>
-							</div>
-						</CardHeader>
-						<CardContent>
-							<CardDescription class="line-clamp-3 text-base leading-relaxed">
-								{getExcerpt(article.content, 150)}
-							</CardDescription>
-							{#if article.content.length > 150}
-								<div class="mt-3">
-									<Button
-										variant="ghost"
-										href="/articles/{article.slug}"
-										size="sm"
-										class="h-auto p-0 text-xs text-primary hover:underline"
-										aria-label="Read more about: {article.title}"
-									>
-										{$t('common.articles.read_more')}
-										<ChevronRight class="ml-1 h-3 w-3" />
-									</Button>
-								</div>
-							{/if}
-						</CardContent>
-					</Card>
-				{/each}
+		{#if error}
+			<div class="mx-auto mt-6 max-w-md bg-destructive/10 px-6 py-4 text-destructive">
+				{error}
 			</div>
 		{/if}
-
-		<!-- Browse All CTA -->
-		<div class="mt-12 text-center">
+		<div class="mt-8 flex justify-center">
 			<Button
-				href="/articles"
 				size="lg"
-				class="group px-8 py-4 text-lg shadow-xl hover:shadow-2xl"
-				aria-label="Browse all articles about Butuh Kidul village"
+				href="#statistics"
+				class="px-8 py-4 text-base shadow-md hover:shadow-lg"
+				disabled={isLoading}
 			>
-				{$t('common.articles.browse_all')}
-				<ChevronRight class="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
+				{$t('common.hero.explore_button')}
+				<ChevronRight class="ml-2 h-5 w-5" />
 			</Button>
 		</div>
 	</div>
+	<div
+		class="absolute bottom-12 left-1/2 flex -translate-x-1/2 animate-bounce flex-col items-center gap-1 text-primary"
+	>
+		<span class="text-xs font-semibold tracking-widest uppercase"
+			>{$t('common.hero.explore_text')}</span
+		>
+		<span class="material-symbols-outlined text-2xl">keyboard_double_arrow_down</span>
+	</div>
 </section>
+
+<!-- Bento Grid Container -->
+<div id="statistics" class="mx-auto max-w-[--width-container-max] px-4 py-12 md:px-16">
+	<div class="grid grid-cols-1 gap-6 md:grid-cols-12">
+		<!-- 2. Core Village Metrics (KPI Grid) -->
+		<div class="space-y-6 md:col-span-12">
+			<div class="flex items-center gap-4">
+				<h2 class="text-xl font-bold">{$t('common.population.title')}</h2>
+				<div class="h-px flex-grow bg-border"></div>
+			</div>
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+				{#if populationLoading}
+					{#each Array(3) as __unused, i (i)}
+						{void __unused}
+						<div class="animate-pulse border border-border p-8">
+							<div class="mb-4 h-8 w-8 bg-muted"></div>
+							<div class="mb-2 h-8 w-24 bg-muted"></div>
+							<div class="mb-2 h-4 w-32 bg-muted"></div>
+							<div class="h-3 w-48 bg-muted"></div>
+						</div>
+					{/each}
+				{:else if populationError}
+					<div class="py-12 text-center md:col-span-3">
+						<p class="text-destructive">{populationError}</p>
+					</div>
+				{:else if populationStats}
+					<div class="group border border-border bg-card p-8 transition-colors hover:bg-accent/50">
+						<div class="mb-4 flex items-center justify-between text-primary">
+							<span class="material-symbols-outlined text-3xl">groups</span>
+							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
+								>{$t('common.population.cards.live_data_badge')}</span
+							>
+						</div>
+						<div class="mb-1 text-3xl font-bold">
+							{populationStats.totalPopulation.toLocaleString('id-ID')}
+						</div>
+						<div class="mb-2 text-xs font-semibold tracking-wider text-foreground uppercase">
+							{$t('common.population.cards.total_population')}
+						</div>
+						<p class="text-xs text-muted-foreground">
+							{$t('common.population.descriptions.census')}
+						</p>
+					</div>
+					<div class="group border border-border bg-card p-8 transition-colors hover:bg-accent/50">
+						<div class="mb-4 flex items-center justify-between text-primary">
+							<span class="material-symbols-outlined text-3xl">home</span>
+							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
+								>{$t('common.population.cards.validated_badge')}</span
+							>
+						</div>
+						<div class="mb-1 text-3xl font-bold">
+							{populationStats.totalHouseholds.toLocaleString('id-ID')}
+						</div>
+						<div class="mb-2 text-xs font-semibold tracking-wider text-foreground uppercase">
+							{$t('common.population.cards.total_households')}
+						</div>
+						<p class="text-xs text-muted-foreground">
+							{$t('common.population.descriptions.households')}
+						</p>
+					</div>
+					<div class="group border border-border bg-card p-8 transition-colors hover:bg-accent/50">
+						<div class="mb-4 flex items-center justify-between text-primary">
+							<span class="material-symbols-outlined text-3xl">family_restroom</span>
+							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
+								>{$t('common.population.cards.kk_badge')}</span
+							>
+						</div>
+						<div class="mb-1 text-3xl font-bold">
+							{populationStats.totalHouseholds.toLocaleString('id-ID')}
+						</div>
+						<div class="mb-2 text-xs font-semibold tracking-wider text-foreground uppercase">
+							{$t('common.population.cards.total_family_units')}
+						</div>
+						<p class="text-xs text-muted-foreground">
+							{$t('common.population.descriptions.kk')}
+						</p>
+					</div>
+				{/if}
+			</div>
+		</div>
+
+		<!-- 3. Granular Administrative Data + Geographic Verification -->
+		{#if populationStats && hamletData.length > 0}
+			{@const avgPopulation = hamletData.reduce((s, d) => s + d.population, 0) / hamletData.length}
+			<div class="flex flex-col border border-border bg-card md:col-span-8">
+				<div class="flex items-center justify-between border-b border-border bg-muted/30 p-6">
+					<h2 class="text-xl font-bold">{$t('common.population.admin.title')}</h2>
+					<span class="material-symbols-outlined text-muted-foreground">analytics</span>
+				</div>
+				<div class="overflow-x-auto">
+					<table class="w-full text-left text-sm">
+						<thead>
+							<tr class="border-b border-border bg-card">
+								<th class="px-6 py-4 text-xs font-semibold tracking-wider"
+									>{$t('common.population.admin.unit_label')}</th
+								>
+								<th class="px-6 py-4 text-xs font-semibold tracking-wider"
+									>{$t('common.population.admin.population_label')}</th
+								>
+								<th class="px-6 py-4 text-xs font-semibold tracking-wider"
+									>{$t('common.population.admin.households_label')}</th
+								>
+								<th class="px-6 py-4 text-xs font-semibold tracking-wider"
+									>{$t('common.population.admin.status_label')}</th
+								>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-border">
+							{#each hamletData as item (item.hamlet)}
+								{@const status = getHamletStatus(item.population, avgPopulation)}
+								<tr>
+									<td class="px-6 py-4">{item.hamlet}</td>
+									<td class="px-6 py-4">{item.population}</td>
+									<td class="px-6 py-4">{item.households}</td>
+									<td class="px-6 py-4">
+										<span
+											class="rounded-full px-2 py-1 text-[10px] font-bold {status === 'DENSE'
+												? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+												: status === 'BALANCED'
+													? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+													: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'}"
+											>{status}</span
+										>
+									</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
+				<div
+					class="mt-auto grid grid-cols-1 gap-4 border-t border-border bg-muted/20 p-6 md:grid-cols-3"
+				>
+					<div class="flex flex-col gap-1">
+						<div class="text-[10px] font-bold text-primary uppercase">
+							{$t('common.population.insights.gender_balance.title')}
+						</div>
+						<p class="text-xs leading-tight text-muted-foreground">
+							{$t('common.population.insights.gender_balance.desc')}
+						</p>
+					</div>
+					<div class="flex flex-col gap-1">
+						<div class="text-[10px] font-bold text-primary uppercase">
+							{$t('common.population.insights.household_density.title')}
+						</div>
+						<p class="text-xs leading-tight text-muted-foreground">
+							{$t('common.population.insights.household_density.desc')}
+						</p>
+					</div>
+					<div class="flex flex-col gap-1">
+						<div class="text-[10px] font-bold text-primary uppercase">
+							{$t('common.population.insights.youth_demographic.title')}
+						</div>
+						<p class="text-xs leading-tight text-muted-foreground">
+							{$t('common.population.insights.youth_demographic.desc')}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- 5. Geographic Verification -->
+			<div class="flex flex-col border border-border bg-card md:col-span-4">
+				<div class="border-b border-border bg-muted/30 p-6">
+					<h2 class="text-xl font-bold">{$t('common.location.geographic_verification')}</h2>
+				</div>
+				<a
+					href="https://www.google.com/maps?q={villageCoordinates.latitude},{villageCoordinates.longitude}"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="relative block min-h-[200px] flex-grow overflow-hidden"
+					aria-label="Open in Google Maps"
+				>
+					<iframe
+						src={googleMapsEmbedUrl}
+						class="pointer-events-none absolute inset-0 h-full w-full"
+						loading="lazy"
+						title="Google Maps"
+					></iframe>
+				</a>
+				<div class="p-6">
+					<p class="mb-2 text-xs text-muted-foreground">
+						{$t('common.location.verified_coordinates')}
+					</p>
+					<div class="text-xs font-semibold tracking-wider text-foreground">
+						{villageCoordinates.latitude.toFixed(4)}, {villageCoordinates.longitude.toFixed(4)}
+					</div>
+					<div class="mt-1 text-sm leading-tight text-foreground">
+						{primaryVillage?.name}, {primaryVillage?.address}
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- 4. Latest Articles -->
+		<div class="md:col-span-12">
+			<div class="mb-6 flex items-center gap-4">
+				<h2 class="text-xl font-bold">{$t('common.articles.title')}</h2>
+				<div class="h-px flex-grow bg-border"></div>
+			</div>
+
+			{#if isLoadingArticles}
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+					{#each Array(2) as __unused, i (i)}
+						{void __unused}
+						<div class="animate-pulse border border-border bg-card p-6">
+							<div class="flex flex-col gap-6 md:flex-row">
+								<div class="aspect-video w-full bg-muted md:aspect-square md:w-1/3"></div>
+								<div class="w-full space-y-3 md:w-2/3">
+									<div class="h-5 w-3/4 bg-muted"></div>
+									<div class="h-4 w-full bg-muted"></div>
+									<div class="h-4 w-2/3 bg-muted"></div>
+								</div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			{:else if articlesError}
+				<div class="py-12 text-center">
+					<div class="mx-auto max-w-md bg-destructive/10 p-8 text-destructive">
+						<Calendar class="mx-auto mb-4 h-12 w-12 text-destructive" />
+						<h3 class="mb-2 text-lg font-semibold">{$t('common.articles.error_loading')}</h3>
+						<p class="mb-4 text-sm">{articlesError}</p>
+						<Button variant="outline" size="sm" onclick={() => window.location.reload()}>
+							{$t('common.articles.try_again')}
+						</Button>
+					</div>
+				</div>
+			{:else if latestArticles.length === 0}
+				<div class="py-12 text-center">
+					<div class="mx-auto max-w-md bg-muted p-8 text-muted-foreground">
+						<Calendar class="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+						<h3 class="mb-2 text-lg font-semibold">{$t('common.articles.no_articles_found')}</h3>
+						<p class="mb-4 text-sm">{$t('common.articles.no_articles_published')}</p>
+						<Button variant="outline" href="/articles" size="sm">
+							{$t('common.articles.view_all_articles')}
+						</Button>
+					</div>
+				</div>
+			{:else}
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+					{#each latestArticles as article (article.id)}
+						<div
+							class="flex flex-col gap-6 border border-border bg-card p-6 transition-shadow hover:shadow-sm md:flex-row"
+						>
+							<div
+								class="flex aspect-video w-full items-center justify-center overflow-hidden bg-muted md:aspect-square md:w-1/3"
+							>
+								{#if article.cover_url}
+									<img
+										src={article.cover_url}
+										alt={article.title}
+										class="h-full w-full object-cover"
+									/>
+								{:else}
+									<span class="material-symbols-outlined text-5xl text-primary/30">inventory_2</span
+									>
+								{/if}
+							</div>
+							<div class="w-full md:w-2/3">
+								<h3 class="mb-2 text-xl font-bold">{article.title}</h3>
+								<div class="mb-3 flex items-center gap-2 text-xs text-muted-foreground">
+									<span class="material-symbols-outlined text-sm">calendar_today</span>
+									<span>
+										{article.published_at
+											? formatDate(article.published_at)
+											: formatDate(article.created_at)}
+									</span>
+								</div>
+								<p class="mb-4 text-sm text-muted-foreground">
+									{getExcerpt(article.content, 120)}
+								</p>
+								<a
+									href="/articles/{article.slug}"
+									class="inline-flex items-center gap-1 text-xs font-semibold tracking-wider text-primary transition-all hover:gap-2"
+								>
+									{$t('common.articles.read_more')}
+									<span class="material-symbols-outlined text-sm">arrow_forward</span>
+								</a>
+							</div>
+						</div>
+					{/each}
+				</div>
+			{/if}
+
+			<div class="mt-8 text-center">
+				<Button href="/articles" size="lg" class="px-8 py-4 text-base shadow-md hover:shadow-lg">
+					{$t('common.articles.browse_all')}
+					<ChevronRight class="ml-2 h-5 w-5" />
+				</Button>
+			</div>
+		</div>
+	</div>
+</div>

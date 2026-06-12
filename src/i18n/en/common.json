@@ -13,7 +13,9 @@
 		"village_name": "Butuh Kidul Village",
 		"subtitle": "A beautiful village nestled in the heart of Indonesia, where tradition meets modernity and community thrives in harmony with nature.",
 		"explore_button": "Explore Our Village",
-		"learn_more": "Learn More"
+		"learn_more": "Learn More",
+		"badge": "Village Digital Infrastructure",
+		"explore_text": "Explore"
 	},
 	"location": {
 		"title": "Village Location",
@@ -23,7 +25,9 @@
 		"coordinates": "Coordinates",
 		"quick_actions": "Quick Actions",
 		"get_directions": "Get Directions",
-		"copy_coordinates": "Copy Coordinates"
+		"copy_coordinates": "Copy Coordinates",
+		"geographic_verification": "Geographic Verification",
+		"verified_coordinates": "Verified Administrative Coordinates:"
 	},
 	"population": {
 		"title": "Population Statistics",
@@ -31,8 +35,38 @@
 		"cards": {
 			"total_population": "Total Population",
 			"total_households": "Total Households",
+			"total_family_units": "Total Family Units",
 			"male_population": "Male",
-			"female_population": "Female"
+			"female_population": "Female",
+			"live_data_badge": "LIVE DATA",
+			"validated_badge": "VALIDATED",
+			"kk_badge": "KK RECORDS"
+		},
+		"descriptions": {
+			"census": "Combined census count across all administrative RT units (01-04).",
+			"households": "Active residential households registered with the village administration.",
+			"kk": "Official Kartu Keluarga (KK) clusters verified in the latest period."
+		},
+		"admin": {
+			"title": "Administrative Breakdown (RT 01 - RT 04)",
+			"unit_label": "Unit",
+			"population_label": "Population",
+			"households_label": "Households",
+			"status_label": "Status"
+		},
+		"insights": {
+			"gender_balance": {
+				"title": "Gender Balance",
+				"desc": "Balanced demographic distribution with a slight female majority in RT 02."
+			},
+			"household_density": {
+				"title": "Household Density",
+				"desc": "RT 03 represents the highest residential density within the village."
+			},
+			"youth_demographic": {
+				"title": "Youth Demographic",
+				"desc": "Consistent growth trends observed in RT 03 and RT 04."
+			}
 		},
 		"charts": {
 			"total_population_chart": "Total Population",

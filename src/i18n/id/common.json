@@ -13,7 +13,9 @@
 		"village_name": "Dusun Butuh Kidul",
 		"subtitle": "Sebuah dusun yang indah terletak di jantung Indonesia, di mana tradisi bertemu dengan modernitas dan masyarakat berkembang dalam harmoni dengan alam.",
 		"explore_button": "Jelajahi Dusun Kami",
-		"learn_more": "Pelajari Lebih Lanjut"
+		"learn_more": "Pelajari Lebih Lanjut",
+		"badge": "Infrastruktur Digital Desa",
+		"explore_text": "Jelajahi"
 	},
 	"location": {
 		"title": "Lokasi Dusun",
@@ -23,7 +25,9 @@
 		"coordinates": "Koordinat",
 		"quick_actions": "Aksi Cepat",
 		"get_directions": "Petunjuk Arah",
-		"copy_coordinates": "Salin Koordinat"
+		"copy_coordinates": "Salin Koordinat",
+		"geographic_verification": "Verifikasi Geografis",
+		"verified_coordinates": "Koordinat Administratif Terverifikasi:"
 	},
 	"population": {
 		"title": "Statistik Penduduk",
@@ -31,8 +35,38 @@
 		"cards": {
 			"total_population": "Total Penduduk",
 			"total_households": "Total Kepala Keluarga",
+			"total_family_units": "Total Kartu Keluarga",
 			"male_population": "Laki-laki",
-			"female_population": "Perempuan"
+			"female_population": "Perempuan",
+			"live_data_badge": "DATA LANGSUNG",
+			"validated_badge": "TERVERIFIKASI",
+			"kk_badge": "REKAM KK"
+		},
+		"descriptions": {
+			"census": "Total sensus penduduk di seluruh unit RT administratif (01-04).",
+			"households": "Kepala keluarga aktif yang terdaftar di administrasi desa.",
+			"kk": "Klaster Kartu Keluarga (KK) resmi yang terverifikasi pada periode terakhir."
+		},
+		"admin": {
+			"title": "Rincian Administratif (RT 01 - RT 04)",
+			"unit_label": "Unit",
+			"population_label": "Penduduk",
+			"households_label": "KK",
+			"status_label": "Status"
+		},
+		"insights": {
+			"gender_balance": {
+				"title": "Keseimbangan Gender",
+				"desc": "Distribusi demografis seimbang dengan mayoritas perempuan di RT 02."
+			},
+			"household_density": {
+				"title": "Kepadatan KK",
+				"desc": "RT 03 memiliki kepadatan hunian tertinggi di dalam dusun."
+			},
+			"youth_demographic": {
+				"title": "Demografi Pemuda",
+				"desc": "Pertumbuhan konsisten terlihat di RT 03 dan RT 04."
+			}
 		},
 		"charts": {
 			"total_population_chart": "Total Penduduk",

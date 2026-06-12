@@ -37,6 +37,10 @@
 	<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 	<link rel="preconnect" href="https://maps.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+		rel="stylesheet"
+	/>
 
 	<meta name="keywords" content={siteConfig.keywords} />
 	<meta name="author" content={siteConfig.name} />
@@ -74,10 +78,8 @@
 	{#if isI18nReady}
 		<Navbar />
 	{/if}
-	<main class="flex min-h-screen flex-col items-center justify-center py-8">
-		<div class="flex w-full flex-col items-center justify-center px-4 md:px-16">
-			{@render children()}
-		</div>
+	<main class="flex-grow">
+		{@render children()}
 	</main>
 	<ScrollToTop />
 {/if}
