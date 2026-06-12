@@ -42,9 +42,7 @@
 >
 	{#if !isVisible}
 		<!-- Loading placeholder -->
-		<div
-			class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800"
-		>
+		<div class="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700">
 			<div class="text-center">
 				<Map class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
 				<p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Loading map...</p>
@@ -52,9 +50,7 @@
 		</div>
 	{:else}
 		<!-- Map Loading Skeleton -->
-		<div
-			class="absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800"
-		></div>
+		<div class="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700"></div>
 
 		<!-- Map Iframe -->
 		<iframe
@@ -71,7 +67,7 @@
 
 		<!-- Map Overlay -->
 		<div
-			class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+			class="absolute inset-0 bg-black/10 opacity-0 transition-opacity group-hover:opacity-100"
 		></div>
 
 		<!-- Map Badge -->

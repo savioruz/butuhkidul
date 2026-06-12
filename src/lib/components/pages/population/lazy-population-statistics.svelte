@@ -44,9 +44,7 @@
 	{#if !isVisible || !PopulationStatistics}
 		<!-- Loading placeholder -->
 		<section class="mt-16 w-full">
-			<Card
-				class="animate-pulse border-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 shadow-2xl dark:from-blue-950/20 dark:to-purple-950/20"
-			>
+			<Card class="animate-pulse border-0 bg-blue-50/50 shadow-2xl dark:bg-blue-950/20">
 				<CardHeader class="text-center">
 					<div
 						class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50"

@@ -86,9 +86,7 @@
 <section class="mt-24 w-full">
 	<div class="mb-12 text-center">
 		<div class="mb-4 flex justify-center">
-			<div
-				class="rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 p-3 dark:from-indigo-900/50 dark:to-purple-900/50"
-			>
+			<div class="rounded-full bg-indigo-100 p-3 dark:bg-indigo-900/50">
 				<BarChart3 class="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
 			</div>
 		</div>
@@ -134,7 +132,7 @@
 	{:else if populationStats}
 		<div class="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 			<Card
-				class="group overflow-hidden border-0 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:from-blue-950/30 dark:to-indigo-950/30"
+				class="group overflow-hidden border-0 bg-blue-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:bg-blue-950/30"
 			>
 				<CardHeader class="pb-4">
 					<div class="flex items-center justify-between">
@@ -156,7 +154,7 @@
 			</Card>
 
 			<Card
-				class="group overflow-hidden border-0 bg-gradient-to-br from-green-50 to-emerald-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:from-green-950/30 dark:to-emerald-950/30"
+				class="group overflow-hidden border-0 bg-green-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:bg-green-950/30"
 			>
 				<CardHeader class="pb-4">
 					<div class="flex items-center justify-between">
@@ -178,7 +176,7 @@
 			</Card>
 
 			<Card
-				class="group overflow-hidden border-0 bg-gradient-to-br from-purple-50 to-pink-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:from-purple-950/30 dark:to-pink-950/30"
+				class="group overflow-hidden border-0 bg-purple-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:bg-purple-950/30"
 			>
 				<CardHeader class="pb-4">
 					<div class="flex items-center justify-between">
@@ -200,7 +198,7 @@
 			</Card>
 
 			<Card
-				class="group overflow-hidden border-0 bg-gradient-to-br from-pink-50 to-rose-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:from-pink-950/30 dark:to-rose-950/30"
+				class="group overflow-hidden border-0 bg-pink-50 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:bg-pink-950/30"
 			>
 				<CardHeader class="pb-4">
 					<div class="flex items-center justify-between">

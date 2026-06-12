@@ -289,9 +289,7 @@
 			<div class="space-y-8">
 				{#if type === 'organization'}
 					{#if organization.description}
-						<Card
-							class="overflow-hidden bg-gradient-to-r from-primary/10 to-primary/5 px-8 shadow-lg"
-						>
+						<Card class="overflow-hidden bg-primary/10 px-8 shadow-lg">
 							<div class="flex flex-col gap-6 lg:flex-row lg:items-center">
 								<!-- Profile Image -->
 								<div class="flex justify-center lg:justify-start">

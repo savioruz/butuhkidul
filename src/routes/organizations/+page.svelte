@@ -68,7 +68,7 @@
 <div class="min-h-screen bg-background text-foreground">
 	<!-- Main Content -->
 	<section class="py-8 sm:py-12 lg:py-16">
-		<div class="mx-auto w-full max-w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+		<div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 			{#if isLoading}
 				<!-- Loading State -->
 				<div class="py-16 text-center sm:py-20">
@@ -127,13 +127,11 @@
 					</div>
 
 					<!-- Organizations Grid -->
-					<div
-						class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4 2xl:grid-cols-5"
-					>
+					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
 						{#each organizations as organization (organization.id)}
 							<a href="/organizations/{createSlug(organization.name)}" class="group block">
 								<Card
-									class="flex h-120 w-80 cursor-pointer flex-col overflow-hidden border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:hover:-translate-y-2"
+									class="flex h-full cursor-pointer flex-col overflow-hidden border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:hover:-translate-y-2"
 								>
 									<CardHeader class="px-4 pt-6 pb-4 sm:px-6 sm:pt-8 sm:pb-6">
 										<div class="mb-3 flex items-start justify-between sm:mb-4">
@@ -172,14 +170,10 @@
 									<CardContent
 										class="flex flex-grow flex-col justify-end px-4 pt-0 pb-4 sm:px-6 sm:pb-6"
 									>
-										<div class="space-y-3 sm:space-y-4">
-											<div
-												class="w-full rounded-lg bg-primary/10 px-3 py-2 text-center text-sm font-medium text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:text-base"
-											>
-												<Users class="mr-2 inline h-3 w-3 sm:h-4 sm:w-4" />
-												{$t('common.organizations.view_members')}
-											</div>
-										</div>
+										<Button variant="outline" size="sm" class="w-full gap-2 text-sm sm:text-base">
+											<Users class="h-4 w-4" />
+											{$t('common.organizations.view_members')}
+										</Button>
 									</CardContent>
 								</Card>
 							</a>

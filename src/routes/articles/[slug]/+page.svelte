@@ -149,7 +149,7 @@
 					{#if article.cover_url}
 						<div class="relative h-64 overflow-hidden md:h-96">
 							<img src={article.cover_url} alt={article.title} class="h-full w-full object-cover" />
-							<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+							<div class="absolute inset-0 bg-black/60"></div>
 							<div class="absolute right-6 bottom-6 left-6">
 								<div
 									class="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-3 py-1 text-sm font-medium text-card-foreground backdrop-blur-sm"

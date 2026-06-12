@@ -103,18 +103,9 @@
 <!-- 1. Hero Section -->
 <section class="relative w-full">
 	<!-- Hero Background -->
-	<div
-		class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-50 via-emerald-50 to-blue-50 dark:from-green-950/30 dark:via-emerald-950/30 dark:to-blue-950/30"
-	>
+	<div class="relative overflow-hidden rounded-3xl bg-green-50 dark:bg-green-950/30">
 		<div
 			class="bg-grid-slate-100 dark:bg-grid-slate-700/25 absolute inset-0 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"
-		></div>
-
-		<div
-			class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-gradient-to-br from-green-400/20 to-blue-400/20 blur-3xl"
-		></div>
-		<div
-			class="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-gradient-to-tr from-emerald-400/20 to-cyan-400/20 blur-3xl"
 		></div>
 
 		<div class="relative px-6 py-20 sm:px-12 sm:py-24 lg:px-16 lg:py-32">
@@ -122,9 +113,7 @@
 				<div class="mb-8 flex justify-center">
 					<div class="relative">
 						<div class="absolute inset-0 animate-pulse rounded-full bg-green-500/20 blur-2xl"></div>
-						<div
-							class="relative rounded-full bg-gradient-to-br from-green-100 to-emerald-100 p-6 shadow-2xl dark:from-green-900/50 dark:to-emerald-900/50"
-						>
+						<div class="relative rounded-full bg-green-100 p-6 shadow-2xl dark:bg-green-900/50">
 							<MapPin class="h-12 w-12 text-green-600 dark:text-green-400" />
 						</div>
 					</div>
@@ -136,9 +125,7 @@
 				>
 					{$t('common.hero.welcome')}
 					<br class="hidden sm:block" />
-					<span
-						class="bg-gradient-to-r from-green-600 via-emerald-600 to-blue-600 bg-clip-text text-transparent"
-					>
+					<span class="text-primary">
 						{isLoading
 							? $t('common.loading')
 							: (primaryVillage?.name ?? $t('common.hero.village_name'))}
@@ -198,26 +185,20 @@
 <!-- 4. Location Section -->
 {#if primaryVillage}
 	<section id="location" class="mt-16 w-full">
-		<Card
-			class="overflow-hidden border-0 bg-gradient-to-br from-green-50/50 to-blue-50/50 shadow-2xl dark:from-green-950/20 dark:to-blue-950/20"
-		>
+		<Card class="overflow-hidden border-0 bg-green-50/50 shadow-2xl dark:bg-green-950/20">
 			<CardHeader class="pb-8">
 				<div class="flex flex-col items-center gap-6 text-center">
 					<div class="space-y-4">
 						<div class="flex justify-center">
 							<div class="relative">
 								<div class="absolute inset-0 rounded-xl bg-green-500/20 blur-xl"></div>
-								<div
-									class="relative rounded-xl bg-gradient-to-br from-green-100 to-emerald-100 p-4 dark:from-green-900/50 dark:to-emerald-900/50"
-								>
+								<div class="relative rounded-xl bg-green-100 p-4 dark:bg-green-900/50">
 									<Map class="h-8 w-8 text-green-600 lg:h-10 lg:w-10 dark:text-green-400" />
 								</div>
 							</div>
 						</div>
 						<CardTitle class="text-3xl font-bold lg:text-4xl">
-							<span
-								class="bg-gradient-to-r from-green-700 to-blue-700 bg-clip-text text-transparent dark:from-green-400 dark:to-blue-400"
-							>
+							<span class="text-primary">
 								{$t('common.location.title')}
 							</span>
 						</CardTitle>
@@ -247,16 +228,12 @@
 					</div>
 
 					<!-- Enhanced Location Info -->
-					<div
-						class="bg-gradient-to-b from-white/50 to-gray-50/50 p-8 xl:col-span-1 dark:from-gray-900/50 dark:to-gray-950/50"
-					>
+					<div class="bg-white/50 p-8 xl:col-span-1 dark:bg-gray-900/50">
 						<div class="space-y-8">
 							<!-- Village Information -->
 							<div class="space-y-6">
 								<div class="flex items-center gap-3">
-									<div
-										class="h-8 w-1 rounded-full bg-gradient-to-b from-green-500 to-blue-500"
-									></div>
+									<div class="h-8 w-1 rounded-full bg-green-500"></div>
 									<h3 class="text-xl font-bold text-foreground">
 										{$t('common.location.village_info')}
 									</h3>
@@ -286,9 +263,7 @@
 									>
 										<div class="flex items-start gap-4">
 											<div class="rounded-lg bg-blue-100 p-2 dark:bg-blue-900/50">
-												<div
-													class="h-5 w-5 rounded-full bg-gradient-to-br from-blue-500 to-purple-500"
-												></div>
+												<div class="h-5 w-5 rounded-full bg-blue-500"></div>
 											</div>
 											<div class="flex-1 space-y-1">
 												<p class="text-sm font-semibold text-foreground">
@@ -308,9 +283,7 @@
 							<!-- Quick Actions -->
 							<div class="space-y-6">
 								<div class="flex items-center gap-3">
-									<div
-										class="h-8 w-1 rounded-full bg-gradient-to-b from-blue-500 to-purple-500"
-									></div>
+									<div class="h-8 w-1 rounded-full bg-blue-500"></div>
 									<h4 class="text-lg font-bold text-foreground">
 										{$t('common.location.quick_actions')}
 									</h4>
@@ -321,7 +294,7 @@
 										variant="outline"
 										size="lg"
 										onclick={() => window.open(getGoogleMapsLink(), '_blank')}
-										class="group w-full justify-start gap-3 border-blue-200 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 py-6 transition-all hover:border-blue-300 hover:from-blue-100 hover:to-indigo-100 hover:shadow-lg dark:border-blue-800 dark:from-blue-950/30 dark:to-indigo-950/30 dark:hover:from-blue-900/50 dark:hover:to-indigo-900/50"
+										class="group w-full justify-start gap-3 border-blue-200 bg-blue-50/50 py-6 transition-all hover:border-blue-300 hover:bg-blue-100 hover:shadow-lg dark:border-blue-800 dark:bg-blue-950/30 dark:hover:bg-blue-900/50"
 										aria-label="Get directions to Butuh Kidul village via Google Maps"
 									>
 										<div
@@ -343,7 +316,7 @@
 												`${villageCoordinates.latitude}, ${villageCoordinates.longitude}`
 											);
 										}}
-										class="group w-full justify-start gap-3 border-purple-200 bg-gradient-to-r from-purple-50/50 to-pink-50/50 py-6 transition-all hover:border-purple-300 hover:from-purple-100 hover:to-pink-100 hover:shadow-lg dark:border-purple-800 dark:from-purple-950/30 dark:to-pink-950/30 dark:hover:from-purple-900/50 dark:hover:to-pink-900/50"
+										class="group w-full justify-start gap-3 border-purple-200 bg-purple-50/50 py-6 transition-all hover:border-purple-300 hover:bg-purple-100 hover:shadow-lg dark:border-purple-800 dark:bg-purple-950/30 dark:hover:bg-purple-900/50"
 										aria-label="Copy Butuh Kidul village GPS coordinates to clipboard"
 									>
 										<div
@@ -360,9 +333,7 @@
 							</div>
 
 							<!-- Additional Info -->
-							<div
-								class="rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 p-5 dark:from-green-950/30 dark:to-emerald-950/30"
-							>
+							<div class="rounded-xl bg-green-50 p-5 dark:bg-green-950/30">
 								<div class="flex items-start gap-3">
 									<div class="rounded-full bg-green-100 p-1 dark:bg-green-900/50">
 										<div class="h-3 w-3 rounded-full bg-green-500"></div>
@@ -390,7 +361,7 @@
 	<!-- Section Header -->
 	<div class="mb-12 text-center">
 		<div
-			class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50"
+			class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50"
 		>
 			<Building2 class="h-8 w-8 text-blue-600 dark:text-blue-400" />
 		</div>
@@ -406,16 +377,14 @@
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 		<!-- Community Feature -->
 		<Card
-			class="group relative overflow-hidden border-0 bg-gradient-to-br from-blue-50/80 to-indigo-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:from-blue-950/30 dark:to-indigo-950/30"
+			class="group relative overflow-hidden border-0 bg-blue-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:bg-blue-950/30"
 		>
 			<div
-				class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 transition-opacity group-hover:opacity-100"
+				class="absolute inset-0 bg-blue-500/5 opacity-0 transition-opacity group-hover:opacity-100"
 			></div>
 			<CardHeader class="relative pt-8 pb-6">
 				<div class="mb-4 flex justify-center">
-					<div
-						class="rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 p-4 shadow-lg dark:from-blue-900/50 dark:to-indigo-900/50"
-					>
+					<div class="rounded-2xl bg-blue-100 p-4 shadow-lg dark:bg-blue-900/50">
 						<Users class="h-8 w-8 text-blue-600 dark:text-blue-400" />
 					</div>
 				</div>
@@ -432,16 +401,14 @@
 
 		<!-- Environment Feature -->
 		<Card
-			class="group relative overflow-hidden border-0 bg-gradient-to-br from-green-50/80 to-emerald-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:from-green-950/30 dark:to-emerald-950/30"
+			class="group relative overflow-hidden border-0 bg-green-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:bg-green-950/30"
 		>
 			<div
-				class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 opacity-0 transition-opacity group-hover:opacity-100"
+				class="absolute inset-0 bg-green-500/5 opacity-0 transition-opacity group-hover:opacity-100"
 			></div>
 			<CardHeader class="relative pt-8 pb-6">
 				<div class="mb-4 flex justify-center">
-					<div
-						class="rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 p-4 shadow-lg dark:from-green-900/50 dark:to-emerald-900/50"
-					>
+					<div class="rounded-2xl bg-green-100 p-4 shadow-lg dark:bg-green-900/50">
 						<Leaf class="h-8 w-8 text-green-600 dark:text-green-400" />
 					</div>
 				</div>
@@ -458,16 +425,14 @@
 
 		<!-- Services Feature -->
 		<Card
-			class="group relative overflow-hidden border-0 bg-gradient-to-br from-purple-50/80 to-pink-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:col-span-2 lg:col-span-1 dark:from-purple-950/30 dark:to-pink-950/30"
+			class="group relative overflow-hidden border-0 bg-purple-50/80 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:col-span-2 lg:col-span-1 dark:bg-purple-950/30"
 		>
 			<div
-				class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 transition-opacity group-hover:opacity-100"
+				class="absolute inset-0 bg-purple-500/5 opacity-0 transition-opacity group-hover:opacity-100"
 			></div>
 			<CardHeader class="relative pt-8 pb-6">
 				<div class="mb-4 flex justify-center">
-					<div
-						class="rounded-2xl bg-gradient-to-br from-purple-100 to-pink-100 p-4 shadow-lg dark:from-purple-900/50 dark:to-pink-900/50"
-					>
+					<div class="rounded-2xl bg-purple-100 p-4 shadow-lg dark:bg-purple-900/50">
 						<Building2 class="h-8 w-8 text-purple-600 dark:text-purple-400" />
 					</div>
 				</div>
@@ -488,9 +453,7 @@
 		<!-- Articles Header -->
 		<div class="mb-12 text-center">
 			<div class="mb-4 flex justify-center">
-				<div
-					class="rounded-full bg-gradient-to-br from-orange-100 to-red-100 p-3 dark:from-orange-900/50 dark:to-red-900/50"
-				>
+				<div class="rounded-full bg-orange-100 p-3 dark:bg-orange-900/50">
 					<Calendar class="h-6 w-6 text-orange-600 dark:text-orange-400" />
 				</div>
 			</div>
@@ -508,9 +471,7 @@
 				{#each Array(3) as i, index (index)}
 					{void i}
 					<Card class="animate-pulse overflow-hidden border-0 shadow-xl">
-						<div
-							class="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800"
-						></div>
+						<div class="aspect-video bg-gray-200 dark:bg-gray-700"></div>
 						<CardHeader class="pb-4">
 							<div class="mb-2 h-6 rounded bg-gray-200 dark:bg-gray-700"></div>
 							<div class="h-4 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
@@ -567,9 +528,9 @@
 			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{#each latestArticles as article, index (article.id)}
 					{@const gradients = [
-						'from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30',
-						'from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30',
-						'from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30'
+						'bg-purple-100 dark:bg-purple-900/30',
+						'bg-green-100 dark:bg-green-900/30',
+						'bg-orange-100 dark:bg-orange-900/30'
 					]}
 					{@const iconColors = [
 						'text-purple-500 dark:text-purple-400',
@@ -587,9 +548,7 @@
 					>
 						<!-- Article Cover -->
 						<div
-							class="relative aspect-video overflow-hidden bg-gradient-to-br {gradients[
-								index % gradients.length
-							]}"
+							class="relative aspect-video overflow-hidden {gradients[index % gradients.length]}"
 						>
 							{#if article.cover_url}
 								<img
@@ -599,11 +558,11 @@
 									loading="lazy"
 								/>
 								<div
-									class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+									class="absolute inset-0 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100"
 								></div>
 							{:else}
 								<div
-									class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+									class="absolute inset-0 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100"
 								></div>
 								<div class="flex h-full items-center justify-center">
 									<IconComponent
