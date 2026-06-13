@@ -240,7 +240,7 @@ html {
 .prose h5,
 .prose h6 {
 	color: var(--color-foreground);
-	font-weight: 600;
+	font-weight: 700;
 	line-height: 1.25;
 	margin-top: 1.5rem;
 	margin-bottom: 0.75rem;

@@ -85,7 +85,6 @@
 			.toLowerCase();
 
 		// Debug log to see what positions we're getting - now showing raw position clearly
-		console.log('RAW Position:', JSON.stringify(position), 'Normalized:', JSON.stringify(pos));
 
 		// More specific matching for leadership positions
 		if (
@@ -94,7 +93,6 @@
 			pos.includes('chair') ||
 			pos.includes('president')
 		) {
-			console.log('  -> Level 1 (Leadership)');
 			return 1;
 		}
 
@@ -109,7 +107,6 @@
 			pos === 'treasurer' ||
 			pos.includes('treasurer')
 		) {
-			console.log('  -> Level 2 (Key Roles)');
 			return 2;
 		}
 
@@ -129,17 +126,14 @@
 			pos.includes(' pj ') || // handles middle PJ like "some pj something"
 			/\bpj\b/i.test(pos) // word boundary match for PJ (case insensitive)
 		) {
-			console.log('  -> Level 3 (Departments)');
 			return 3;
 		}
 
 		// Check for "ANGGOTA" specifically as level 4 (general members)
 		if (pos === 'anggota' || pos.includes('anggota') || pos.includes('member')) {
-			console.log('  -> Level 4 (General Members)');
 			return 4;
 		}
 
-		console.log('  -> Level 4 (Default - General Members)');
 		return 4; // Default to general members
 	}
 
@@ -194,11 +188,6 @@
 		// For member view, include the current member + organizationMembers
 		const allMembers = type === 'organization' ? members : member ? [member, ...members] : members;
 
-		console.log(
-			'All members:',
-			allMembers.map((m) => ({ name: m.name, position: m.position }))
-		);
-
 		const sorted = allMembers.sort((a, b) => {
 			const levelA = getPositionLevel(a.position);
 			const levelB = getPositionLevel(b.position);
@@ -230,13 +219,6 @@
 			departments: sorted.filter((m) => getPositionLevel(m.position) === 3),
 			others: sorted.filter((m) => getPositionLevel(m.position) === 4)
 		};
-
-		console.log('Hierarchy result:', {
-			leaders: result.leaders.map((m) => ({ name: m.name, position: m.position })),
-			keyRoles: result.keyRoles.map((m) => ({ name: m.name, position: m.position })),
-			departments: result.departments.map((m) => ({ name: m.name, position: m.position })),
-			others: result.others.map((m) => ({ name: m.name, position: m.position }))
-		});
 
 		return result;
 	}

@@ -33,7 +33,6 @@
 			error = '';
 
 			const response = await unitsApi.getUnits();
-			console.log('API Response:', response);
 
 			// Handle successful response
 			if (response && response.data && Array.isArray(response.data.units)) {

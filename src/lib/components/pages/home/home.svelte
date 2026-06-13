@@ -254,7 +254,14 @@
 		</div>
 
 		<!-- 3. Granular Administrative Data + Geographic Verification -->
-		{#if populationStats && hamletData.length > 0}
+		{#if populationLoading}
+			<div class="md:col-span-8">
+				<div class="h-[400px] animate-pulse border border-border bg-card"></div>
+			</div>
+			<div class="md:col-span-4">
+				<div class="h-[200px] animate-pulse border border-border bg-card md:min-h-[400px]"></div>
+			</div>
+		{:else if populationStats && hamletData.length > 0}
 			{@const avgPopulation = hamletData.reduce((s, d) => s + d.population, 0) / hamletData.length}
 			<div
 				class="flex animate-in flex-col border border-border bg-card delay-100 duration-700 fade-in slide-in-from-bottom-4 md:col-span-8"

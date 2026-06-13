@@ -31,7 +31,6 @@
 			error = '';
 
 			const response = await articlesApi.getArticleBySlug(slug);
-			console.log('Article response:', response);
 
 			if (response && response.data) {
 				article = response.data;
