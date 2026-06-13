@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>{siteConfig.name}</title>
+	<title>{siteConfig.name} — Portal Resmi Padukuhan</title>
 	<meta name="description" content={siteConfig.description} />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="utf-8" />
@@ -43,10 +43,11 @@
 	<meta name="keywords" content={siteConfig.keywords} />
 	<meta name="author" content={siteConfig.name} />
 
-	<meta property="og:title" content="{siteConfig.name} - Personal Website" />
+	<meta property="og:title" content="{siteConfig.name} — Portal Resmi Padukuhan" />
 	<meta property="og:description" content={siteConfig.description} />
 	<meta property="og:type" content="website" />
-	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content={siteConfig.name} />
+	<meta property="og:locale" content="id_ID" />
 	<meta property="og:url" content={siteConfig.url.toString()} />
 	{#if siteConfig.ogImage}
 		<meta property="og:image" content={siteConfig.ogImage.toString()} />
@@ -58,7 +59,6 @@
 	/>
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:creator" content="@savioruz" />
 	<meta name="twitter:title" content={siteConfig.name} />
 	<meta name="twitter:image" content={siteConfig.ogImage.toString()} />
 	<meta name="twitter:description" content={siteConfig.description} />

@@ -2,8 +2,9 @@ export const siteConfig = {
 	name: 'Butuh Kidul',
 	logo: '/favicon.svg',
 	description:
-		'Website resmi Padukuhan Butuh Kidul - Padukuhan yang indah dengan tradisi kaya dan masyarakat yang harmonis',
-	keywords: 'Desa Butuh Kidul, village, Indonesia, komunitas, tradisi, budaya, wisata desa',
+		'Portal resmi Padukuhan Butuh Kidul, Triwidadi, Pajangan, Bantul, DI Yogyakarta — Informasi desa, data kependudukan, artikel, dan layanan publik.',
+	keywords:
+		'Butuh Kidul, Padukuhan Butuh Kidul, Triwidadi, Pajangan, Bantul, DIY, Yogyakarta, informasi desa, data penduduk',
 	url: new URL('https://butuhkidul.my.id'), // Update with actual village URL
 	ogImage: new URL('https://butuhkidul.my.id/og.png'), // Update with actual OG image
 	links: {
