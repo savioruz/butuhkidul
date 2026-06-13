@@ -2,7 +2,18 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { t } from '$lib/i18n';
-	import { ChevronRight, Calendar } from 'lucide-svelte';
+	import {
+		ChevronRight,
+		Calendar,
+		BadgeCheck,
+		ChevronsDown,
+		Users,
+		Home,
+		BarChart3,
+		MapPin,
+		Package,
+		ArrowRight
+	} from 'lucide-svelte';
 	import type { Village, VillagesResponse } from '@/types/village';
 	import type { Article, ArticlesResponse } from '@/types/article';
 	import { getExcerpt } from '$lib/utils/markdown';
@@ -116,7 +127,7 @@
 		class="mx-auto max-w-7xl animate-in px-4 text-center duration-700 fade-in slide-in-from-bottom-8 md:px-6"
 	>
 		<div class="mb-4 inline-flex items-center gap-2 text-primary">
-			<span class="material-symbols-outlined text-sm">verified</span>
+			<BadgeCheck class="h-3.5 w-3.5" />
 			<span class="text-xs font-semibold tracking-widest uppercase">{$t('common.hero.badge')}</span>
 		</div>
 		<h1
@@ -152,7 +163,7 @@
 		<span class="text-xs font-semibold tracking-widest uppercase"
 			>{$t('common.hero.explore_text')}</span
 		>
-		<span class="material-symbols-outlined text-2xl">keyboard_double_arrow_down</span>
+		<ChevronsDown class="h-6 w-6" />
 	</div>
 </section>
 
@@ -185,7 +196,7 @@
 						class="group animate-in border border-border bg-card p-8 transition-colors duration-500 fade-in slide-in-from-bottom-4 hover:bg-accent/50"
 					>
 						<div class="mb-4 flex items-center justify-between text-primary">
-							<span class="material-symbols-outlined text-3xl">groups</span>
+							<Users class="h-8 w-8" />
 							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
 								>{$t('common.population.cards.live_data_badge')}</span
 							>
@@ -204,7 +215,7 @@
 						class="group animate-in border border-border bg-card p-8 transition-colors delay-150 duration-500 fade-in slide-in-from-bottom-4 hover:bg-accent/50"
 					>
 						<div class="mb-4 flex items-center justify-between text-primary">
-							<span class="material-symbols-outlined text-3xl">home</span>
+							<Home class="h-8 w-8" />
 							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
 								>{$t('common.population.cards.validated_badge')}</span
 							>
@@ -223,7 +234,7 @@
 						class="group animate-in border border-border bg-card p-8 transition-colors delay-300 duration-500 fade-in slide-in-from-bottom-4 hover:bg-accent/50"
 					>
 						<div class="mb-4 flex items-center justify-between text-primary">
-							<span class="material-symbols-outlined text-3xl">family_restroom</span>
+							<Users class="h-8 w-8" />
 							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
 								>{$t('common.population.cards.kk_badge')}</span
 							>
@@ -250,7 +261,7 @@
 			>
 				<div class="flex items-center justify-between border-b border-border bg-muted/30 p-6">
 					<h2 class="text-lg font-bold md:text-xl">{$t('common.population.admin.title')}</h2>
-					<span class="material-symbols-outlined text-muted-foreground">analytics</span>
+					<BarChart3 class="h-5 w-5 text-muted-foreground" />
 				</div>
 				<!-- Mobile: stacked cards -->
 				<div class="divide-y divide-border md:hidden">
@@ -360,7 +371,7 @@
 					href="/location"
 					class="group flex min-h-[200px] flex-grow flex-col items-center justify-center gap-2 bg-muted/30 transition-colors hover:bg-muted/50"
 				>
-					<span class="material-symbols-outlined text-4xl text-primary">map</span>
+					<MapPin class="h-9 w-9 text-primary" />
 					<div class="text-xs font-semibold tracking-wider">
 						{villageCoordinates.latitude.toFixed(4)}, {villageCoordinates.longitude.toFixed(4)}
 					</div>
@@ -443,14 +454,13 @@
 										decoding="async"
 									/>
 								{:else}
-									<span class="material-symbols-outlined text-5xl text-primary/30">inventory_2</span
-									>
+									<Package class="h-12 w-12 text-primary/30" />
 								{/if}
 							</div>
 							<div class="w-full md:w-2/3">
 								<h3 class="mb-2 text-lg font-bold md:text-xl">{article.title}</h3>
 								<div class="mb-3 flex items-center gap-2 text-xs text-muted-foreground">
-									<span class="material-symbols-outlined text-sm">calendar_today</span>
+									<Calendar class="h-4 w-4" />
 									<span>
 										{article.published_at
 											? formatDate(article.published_at)
@@ -465,7 +475,7 @@
 									class="inline-flex items-center gap-1 text-xs font-semibold tracking-wider text-primary transition-all hover:gap-2"
 								>
 									{$t('common.articles.read_more')}
-									<span class="material-symbols-outlined text-sm">arrow_forward</span>
+									<ArrowRight class="h-3.5 w-3.5" />
 								</a>
 							</div>
 						</div>

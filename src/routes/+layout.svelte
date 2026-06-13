@@ -33,17 +33,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="utf-8" />
 
-	<link rel="dns-prefetch" href="//fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link
-		rel="preload"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-		as="style"
-	/>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-		rel="stylesheet"
-	/>
 	<link rel="dns-prefetch" href="//pqvliofeaxhjqzdnodlr.storage.supabase.co" />
 	<link
 		rel="preconnect"
