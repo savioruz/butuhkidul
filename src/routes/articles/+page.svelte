@@ -209,6 +209,8 @@
 												src={article.cover_url}
 												alt={article.title}
 												class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+												loading="lazy"
+												decoding="async"
 											/>
 											<div class="absolute top-4 right-4">
 												<div

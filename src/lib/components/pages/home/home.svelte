@@ -43,9 +43,6 @@
 		longitude: 110.275761
 	};
 
-	const googleMapsEmbedUrl =
-		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.3039250239203!2d110.27576072573447!3d-7.863228978172313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af921ec0e2b1f%3A0x8ea440c9c9a1a377!2sButuh%20Kidul%2C%20Triwidadi%2C%20Pajangan%2C%20Bantul%20Regency%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1757404961400!5m2!1sen!2sid';
-
 	function formatDate(dateString: string): string {
 		try {
 			const date = new Date(dateString);
@@ -115,7 +112,9 @@
 <section
 	class="grid-bg relative flex min-h-[calc(100dvh-64px)] flex-col items-center justify-center border-b border-border"
 >
-	<div class="mx-auto max-w-7xl px-4 text-center md:px-6">
+	<div
+		class="mx-auto max-w-7xl animate-in px-4 text-center duration-700 fade-in slide-in-from-bottom-8 md:px-6"
+	>
 		<div class="mb-4 inline-flex items-center gap-2 text-primary">
 			<span class="material-symbols-outlined text-sm">verified</span>
 			<span class="text-xs font-semibold tracking-widest uppercase">{$t('common.hero.badge')}</span>
@@ -161,7 +160,7 @@
 <div id="statistics" class="mx-auto px-4 py-12 md:px-16">
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-12">
 		<!-- 2. Core Village Metrics (KPI Grid) -->
-		<div class="space-y-6 md:col-span-12">
+		<div class="animate-in space-y-6 duration-500 fade-in slide-in-from-bottom-4 md:col-span-12">
 			<div class="flex items-center gap-4">
 				<h2 class="text-lg font-bold md:text-xl">{$t('common.population.title')}</h2>
 				<div class="h-px flex-grow bg-border"></div>
@@ -182,7 +181,9 @@
 						<p class="text-destructive">{populationError}</p>
 					</div>
 				{:else if populationStats}
-					<div class="group border border-border bg-card p-8 transition-colors hover:bg-accent/50">
+					<div
+						class="group animate-in border border-border bg-card p-8 transition-colors duration-500 fade-in slide-in-from-bottom-4 hover:bg-accent/50"
+					>
 						<div class="mb-4 flex items-center justify-between text-primary">
 							<span class="material-symbols-outlined text-3xl">groups</span>
 							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
@@ -199,7 +200,9 @@
 							{$t('common.population.descriptions.census')}
 						</p>
 					</div>
-					<div class="group border border-border bg-card p-8 transition-colors hover:bg-accent/50">
+					<div
+						class="group animate-in border border-border bg-card p-8 transition-colors delay-150 duration-500 fade-in slide-in-from-bottom-4 hover:bg-accent/50"
+					>
 						<div class="mb-4 flex items-center justify-between text-primary">
 							<span class="material-symbols-outlined text-3xl">home</span>
 							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
@@ -216,7 +219,9 @@
 							{$t('common.population.descriptions.households')}
 						</p>
 					</div>
-					<div class="group border border-border bg-card p-8 transition-colors hover:bg-accent/50">
+					<div
+						class="group animate-in border border-border bg-card p-8 transition-colors delay-300 duration-500 fade-in slide-in-from-bottom-4 hover:bg-accent/50"
+					>
 						<div class="mb-4 flex items-center justify-between text-primary">
 							<span class="material-symbols-outlined text-3xl">family_restroom</span>
 							<span class="text-xs text-muted-foreground transition-colors group-hover:text-primary"
@@ -240,7 +245,9 @@
 		<!-- 3. Granular Administrative Data + Geographic Verification -->
 		{#if populationStats && hamletData.length > 0}
 			{@const avgPopulation = hamletData.reduce((s, d) => s + d.population, 0) / hamletData.length}
-			<div class="flex flex-col border border-border bg-card md:col-span-8">
+			<div
+				class="flex animate-in flex-col border border-border bg-card delay-100 duration-700 fade-in slide-in-from-bottom-4 md:col-span-8"
+			>
 				<div class="flex items-center justify-between border-b border-border bg-muted/30 p-6">
 					<h2 class="text-lg font-bold md:text-xl">{$t('common.population.admin.title')}</h2>
 					<span class="material-symbols-outlined text-muted-foreground">analytics</span>
@@ -341,33 +348,31 @@
 			</div>
 
 			<!-- 5. Geographic Verification -->
-			<div class="flex flex-col border border-border bg-card md:col-span-4">
+			<div
+				class="flex animate-in flex-col border border-border bg-card delay-200 duration-700 fade-in slide-in-from-bottom-4 md:col-span-4"
+			>
 				<div class="border-b border-border bg-muted/30 p-6">
 					<h2 class="text-lg font-bold md:text-xl">
 						{$t('common.location.geographic_verification')}
 					</h2>
 				</div>
 				<a
-					href="https://www.google.com/maps?q={villageCoordinates.latitude},{villageCoordinates.longitude}"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="relative block min-h-[200px] flex-grow overflow-hidden"
-					aria-label="Open in Google Maps"
+					href="/location"
+					class="group flex min-h-[200px] flex-grow flex-col items-center justify-center gap-2 bg-muted/30 transition-colors hover:bg-muted/50"
 				>
-					<iframe
-						src={googleMapsEmbedUrl}
-						class="pointer-events-none absolute inset-0 h-full w-full"
-						loading="lazy"
-						title="Google Maps"
-					></iframe>
+					<span class="material-symbols-outlined text-4xl text-primary">map</span>
+					<div class="text-xs font-semibold tracking-wider">
+						{villageCoordinates.latitude.toFixed(4)}, {villageCoordinates.longitude.toFixed(4)}
+					</div>
+					<span
+						class="text-xs font-semibold tracking-wider text-muted-foreground transition-colors group-hover:text-primary"
+						>{$t('common.location.open_maps')}</span
+					>
 				</a>
 				<div class="p-6">
 					<p class="mb-2 text-xs text-muted-foreground">
 						{$t('common.location.verified_coordinates')}
 					</p>
-					<div class="text-xs font-semibold tracking-wider text-foreground">
-						{villageCoordinates.latitude.toFixed(4)}, {villageCoordinates.longitude.toFixed(4)}
-					</div>
 					<div class="mt-1 text-sm leading-tight text-foreground">
 						{primaryVillage?.name}, {primaryVillage?.address}
 					</div>
@@ -376,7 +381,7 @@
 		{/if}
 
 		<!-- 4. Latest Articles -->
-		<div class="md:col-span-12">
+		<div class="animate-in delay-300 duration-700 fade-in slide-in-from-bottom-4 md:col-span-12">
 			<div class="mb-6 flex items-center gap-4">
 				<h2 class="text-lg font-bold md:text-xl">{$t('common.articles.title')}</h2>
 				<div class="h-px flex-grow bg-border"></div>
@@ -424,7 +429,7 @@
 				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 					{#each latestArticles as article (article.id)}
 						<div
-							class="flex flex-col gap-6 border border-border bg-card p-6 transition-shadow hover:shadow-sm md:flex-row"
+							class="flex cursor-pointer flex-col gap-6 border border-border bg-card p-6 transition-shadow hover:shadow-sm md:flex-row"
 						>
 							<div
 								class="flex aspect-video w-full items-center justify-center overflow-hidden bg-muted md:aspect-square md:w-1/3"
@@ -434,6 +439,8 @@
 										src={article.cover_url}
 										alt={article.title}
 										class="h-full w-full object-cover"
+										loading="lazy"
+										decoding="async"
 									/>
 								{:else}
 									<span class="material-symbols-outlined text-5xl text-primary/30">inventory_2</span

@@ -148,7 +148,13 @@
 				<Card class="mb-8 overflow-hidden border border-border shadow-sm">
 					{#if article.cover_url}
 						<div class="relative h-64 overflow-hidden md:h-96">
-							<img src={article.cover_url} alt={article.title} class="h-full w-full object-cover" />
+							<img
+								src={article.cover_url}
+								alt={article.title}
+								class="h-full w-full object-cover"
+								loading="lazy"
+								decoding="async"
+							/>
 							<div class="absolute inset-0 bg-black/60"></div>
 							<div class="absolute right-6 bottom-6 left-6">
 								<div

@@ -24,5 +24,10 @@ export const navigationConfig: NavItem[] = [
 		href: 'https://kas.butuhkidul.my.id/',
 		label: 'Financial',
 		translationKey: 'financial'
+	},
+	{
+		href: '/location',
+		label: 'Location',
+		translationKey: 'location'
 	}
 ];
