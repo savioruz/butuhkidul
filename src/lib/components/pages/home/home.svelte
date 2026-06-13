@@ -123,9 +123,7 @@
 <section
 	class="grid-bg relative flex min-h-[calc(100dvh-64px)] flex-col items-center justify-center border-b border-border"
 >
-	<div
-		class="mx-auto max-w-7xl animate-in px-4 text-center duration-700 fade-in slide-in-from-bottom-8 md:px-6"
-	>
+	<div class="mx-auto max-w-7xl px-4 text-center md:px-6">
 		<div class="mb-4 inline-flex items-center gap-2 text-primary">
 			<BadgeCheck class="h-3.5 w-3.5" />
 			<span class="text-xs font-semibold tracking-widest uppercase">{$t('common.hero.badge')}</span>
