@@ -44,8 +44,12 @@
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
 		rel="stylesheet"
 	/>
-	<link rel="dns-prefetch" href="//pqvliofeaxhjqzdnodlr.supabase.co" />
-	<link rel="preconnect" href="https://pqvliofeaxhjqzdnodlr.supabase.co" crossorigin="anonymous" />
+	<link rel="dns-prefetch" href="//pqvliofeaxhjqzdnodlr.storage.supabase.co" />
+	<link
+		rel="preconnect"
+		href="https://pqvliofeaxhjqzdnodlr.storage.supabase.co"
+		crossorigin="anonymous"
+	/>
 
 	<meta name="keywords" content={siteConfig.keywords} />
 	<meta name="author" content={siteConfig.name} />
